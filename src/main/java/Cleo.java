@@ -56,7 +56,7 @@ public class Cleo {
                 //TODO
                 String input = userInput.substring(5).trim();
                 tasks[taskCount] = new ToDos(input);
-                System.out.println("Cleo: Got it. I have added this task: ");
+                System.out.println("Cleo: Got it. I have added this task:");
                 System.out.println(tasks[taskCount]);
                 taskCount++;
                 System.out.println("Now you have " + taskCount + " tasks in the list.");
@@ -69,7 +69,7 @@ public class Cleo {
                 String by = parts[1].trim();
 
                 tasks[taskCount] = new Deadline(desc, by);
-                System.out.println("Cleo: Got it. I have added this task: ");
+                System.out.println("Cleo: Got it. I have added this task:");
                 System.out.println(tasks[taskCount]);
                 taskCount++;
                 System.out.println("Now you have " + taskCount + " tasks in the list.");
@@ -83,7 +83,7 @@ public class Cleo {
                 String to = time[1].trim();
 
                 tasks[taskCount] = new Events(desc, from, to);
-                System.out.println("Cleo: Got it. I have added this event: ");
+                System.out.println("Cleo: Got it. I have added this event:");
                 System.out.println(tasks[taskCount]);
                 taskCount++;
                 System.out.println("Now you have " + taskCount + " tasks in the list.");
