@@ -52,10 +52,43 @@ public class Cleo {
                     System.out.println("Cleo: Okay! I've unmarked this task as not done yet:");
                     System.out.println("    " + tasks[taskNumber]);
                 }
-            } else {
-                tasks[taskCount] = new Task(userInput);
+            } else if (userInput.startsWith("todo")) {
+                //TODO
+                String input = userInput.substring(5).trim();
+                tasks[taskCount] = new ToDos(input);
+                System.out.println("Cleo: Got it. I have added this task: ");
+                System.out.println(tasks[taskCount]);
                 taskCount++;
-                System.out.println("Cleo: added " + userInput);
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
+            }
+            else if (userInput.startsWith("deadline")) {
+                //DEADLINE
+                String input = userInput.substring(9).trim();
+                String[] parts = input.split("/by", 2);
+                String desc = parts[0].trim();
+                String by = parts[1].trim();
+
+                tasks[taskCount] = new Deadline(desc, by);
+                System.out.println("Cleo: Got it. I have added this task: ");
+                System.out.println(tasks[taskCount]);
+                taskCount++;
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
+            } else if (userInput.startsWith("event")) {
+                //EVENT
+                String input = userInput.substring(6).trim();
+                String[] parts = input.split("/from", 2);
+                String desc = parts[0].trim();
+                String[] time = parts[1].split("/to", 2);
+                String from = time[0].trim();
+                String to = time[1].trim();
+
+                tasks[taskCount] = new Events(desc, from, to);
+                System.out.println("Cleo: Got it. I have added this event: ");
+                System.out.println(tasks[taskCount]);
+                taskCount++;
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
+            } else {
+                System.out.println("Cleo: Invalid task!");
             }
         }
         scanner.close();
