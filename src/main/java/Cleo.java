@@ -1,4 +1,5 @@
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Cleo {
     public static void main(String[] args) throws CleoException {
@@ -14,7 +15,7 @@ public class Cleo {
         Scanner scanner = new Scanner(System.in);
         String userInput;
 
-        Task[] tasks = new Task[100];
+        ArrayList<Task> tasks = new ArrayList<>();
         int taskCount = 0;
 
         while(true) {
@@ -28,12 +29,12 @@ public class Cleo {
                     System.out.println("Cleo: Hi there! How can I help you today?:)");
                 } else if (userInput.equalsIgnoreCase("list")) {
                     //LIST OF TASKS
-                    if (taskCount == 0) {
-                        System.out.println("No tasks yet!");
+                    if (tasks.isEmpty()) {
+                        System.out.println("Cleo: No tasks yet!");
                     } else {
                         System.out.println("Cleo: Here are your tasks:");
                         for (int i = 0; i < taskCount; i++) {
-                            System.out.println((i + 1) + "." + tasks[i]);
+                            System.out.println((i + 1) + "." + tasks.get(i));
                         }
                     }
                 } else if (userInput.startsWith("mark ")) {
@@ -41,9 +42,9 @@ public class Cleo {
                     try {
                         int taskNumber = Integer.parseInt(userInput.substring(5)) - 1;
                         if (taskNumber >= 0 && taskNumber < taskCount) {
-                            tasks[taskNumber].markAsDone();
+                            tasks.get(taskNumber).markAsDone();
                             System.out.println("Cleo: Great job! I've marked this task as done:");
-                            System.out.println("    " + tasks[taskNumber]);
+                            System.out.println("    " + tasks.get(taskNumber));
                         } else {
                             System.out.println("Cleo: Please provide a valid task number.");
                         }
@@ -55,11 +56,33 @@ public class Cleo {
                     try {
                         int taskNumber = Integer.parseInt(userInput.substring(7)) - 1;
                         if (taskNumber >= 0 && taskNumber < taskCount) {
-                            tasks[taskNumber].unmarkAsDone();
+                            tasks.get(taskNumber).unmarkAsDone();
                             System.out.println("Cleo: Okay! I've unmarked this task as not done yet:");
-                            System.out.println("    " + tasks[taskNumber]);
+                            System.out.println("    " + tasks.get(taskNumber));
                         } else {
                             System.out.println("Cleo: Please provide a valid task number.");
+                        }
+                    }
+                    catch (NumberFormatException e) {
+                        System.out.println("Cleo: Please provide a valid task number.");
+                    }
+                } else if (userInput.startsWith("delete ")) {
+                    //DELETE TASK
+                    try {
+
+                        int taskNumber = Integer.parseInt(userInput.substring(7)) - 1;
+                        if (taskNumber >= 0 && taskNumber < taskCount) {
+                            Task removedTask = tasks.remove(taskNumber);
+                            System.out.println("Cleo: Noted, I've removed this task:");
+                            System.out.println("    " + removedTask);
+                            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                            taskCount--;
+                        } else {
+                            if (tasks.size() == 0) {
+                                System.out.println("Cleo: No tasks to delete yet.");
+                            } else {
+                                System.out.println("Cleo: Please provide a valid task number.");
+                            }
                         }
                     }
                     catch (NumberFormatException e) {
@@ -72,9 +95,9 @@ public class Cleo {
                         throw new CleoException("Oops! The description of a todo cannot be empty.");
                     }
                     String input = userInput.substring(5).trim();
-                    tasks[taskCount] = new ToDos(input);
+                    tasks.add(new ToDos(input));
                     System.out.println("Cleo: Got it. I have added this task:");
-                    System.out.println(tasks[taskCount]);
+                    System.out.println(tasks.getLast());
                     taskCount++;
                     System.out.println("Now you have " + taskCount + " tasks in the list.");
                 } else if (userInput.startsWith("deadline")) {
@@ -91,9 +114,9 @@ public class Cleo {
                     }
                     String desc = parts[0].trim();
                     String by = parts[1].trim();
-                    tasks[taskCount] = new Deadline(desc, by);
+                    tasks.add(new Deadline(desc, by));
                     System.out.println("Cleo: Got it. I have added this task:");
-                    System.out.println(tasks[taskCount]);
+                    System.out.println(tasks.getLast());
                     taskCount++;
                     System.out.println("Now you have " + taskCount + " tasks in the list.");
                 } else if (userInput.startsWith("event")) {
@@ -116,11 +139,11 @@ public class Cleo {
                     String from = time[0].trim();
                     String to = time[1].trim();
 
-                    tasks[taskCount] = new Events(desc, from, to);
+                    tasks.add(new Events(desc, from, to));
                     System.out.println("Cleo: Got it. I have added this event:");
-                    System.out.println(tasks[taskCount]);
+                    System.out.println(tasks.getLast());
                     taskCount++;
-                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                 } else {
                     System.out.println("Cleo: Invalid command!");
                 }
