@@ -1,9 +1,11 @@
 import java.util.Scanner;
 public class Cleo {
     public static void main(String[] args) {
-        String logo = "  /)/)  \n"
-                + " ( •.•)\n"
-                + " (  - )♡\n";
+        String logo = """
+                  /)/) \s
+                 ( •.•)
+                 (  - )♡
+                """;
         System.out.println("Good day! I’m Cleo, your personal assistant,\n" +
                 "What’s on the agenda today?\n"
                 + logo);
