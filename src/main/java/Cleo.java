@@ -20,10 +20,13 @@ public class Cleo {
             if(userInput.equalsIgnoreCase("bye")) {
                 System.out.println("Cleo: Goodbye, hope to see you again soon! :)");
                 break;
-            } else {
-                System.out.println("Okay!");
-
+            } else if (userInput.equalsIgnoreCase("hi") || userInput.equalsIgnoreCase("hello")) {
+                System.out.println("Cleo: Hi there! How can I help you today?:)");
+            }
+            else {
+                System.out.println(userInput);
             }
         }
+        scanner.close();
     }
 }
