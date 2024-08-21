@@ -12,6 +12,8 @@ public class Cleo {
 
         Scanner scanner = new Scanner(System.in);
         String userInput;
+        String[] tasks = new String[100];
+        int taskCount = 0;
 
         while(true) {
             System.out.print("You: ");
@@ -22,9 +24,15 @@ public class Cleo {
                 break;
             } else if (userInput.equalsIgnoreCase("hi") || userInput.equalsIgnoreCase("hello")) {
                 System.out.println("Cleo: Hi there! How can I help you today?:)");
-            }
-            else {
-                System.out.println(userInput);
+            } else if (userInput.equalsIgnoreCase("list")) {
+                System.out.println("Cleo: Here are your tasks:");
+                for (int i = 0; i < taskCount; i++) {
+                    System.out.println((i + 1) + ". " + tasks[i]);
+                }
+            } else {
+                tasks[taskCount] = userInput;
+                taskCount++;
+                System.out.println("Cleo: added " + userInput);
             }
         }
         scanner.close();
