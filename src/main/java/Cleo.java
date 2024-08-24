@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.IOException;
+
 
 public class Cleo {
 
@@ -38,8 +40,14 @@ public class Cleo {
                 "What’s on the agenda today?\n" + logo);
 
         Scanner scanner = new Scanner(System.in);
+        Storage storage = new Storage("./data/cleo.txt");
         ArrayList<Task> tasks = new ArrayList<>();
 
+        try {
+            tasks = storage.loadTasks();  // Load tasks from file
+        } catch (IOException e) {
+            System.out.println("An error occurred while loading tasks: " + e.getMessage());
+        }
         while (true) {
             System.out.print("You:");
             String userInput = scanner.nextLine();
@@ -60,12 +68,15 @@ public class Cleo {
                         tasks.get(taskNumber).markAsDone();
                         System.out.println("Cleo: Great job! I've marked this task as done:");
                         System.out.println("    " + tasks.get(taskNumber));
+                        storage.saveTasks(tasks);  // Save tasks to file
                     }
                     case UNMARK -> {
                         int taskNumber = parseTaskNumber(userInput.substring(7), tasks.size());
                         tasks.get(taskNumber).unmarkAsDone();
                         System.out.println("Cleo: Okay! I've unmarked this task as not done yet:");
                         System.out.println("    " + tasks.get(taskNumber));
+                        storage.saveTasks(tasks);  // Save tasks to file
+
                     }
                     case DELETE -> {
                         int taskNumber = parseTaskNumber(userInput.substring(7), tasks.size());
@@ -73,10 +84,21 @@ public class Cleo {
                         System.out.println("Cleo: Noted, I've removed this task:");
                         System.out.println("    " + removedTask);
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        storage.saveTasks(tasks);  // Save tasks to file
+
                     }
-                    case TODO -> addTodoTask(userInput.substring(4).trim(), tasks);
-                    case DEADLINE -> addDeadlineTask(userInput.substring(8).trim(), tasks);
-                    case EVENT -> addEventTask(userInput.substring(5).trim(), tasks);
+                    case TODO -> {
+                        addTodoTask(userInput.substring(4).trim(), tasks);
+                        storage.saveTasks(tasks);  // Save tasks to file
+                    }
+                    case DEADLINE -> {
+                        addDeadlineTask(userInput.substring(8).trim(), tasks);
+                        storage.saveTasks(tasks);  // Save tasks to file
+                    }
+                    case EVENT -> {
+                        addEventTask(userInput.substring(5).trim(), tasks);
+                        storage.saveTasks(tasks);  // Save tasks to file
+                    }
                     case INVALID -> System.out.println("Cleo: Invalid command!");
                 }
             } catch (CleoException e) {

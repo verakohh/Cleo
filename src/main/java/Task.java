@@ -10,6 +10,13 @@ public abstract class Task {
         return (isDone ? "[X] " : "[ ] ");
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+    public Boolean isDoneString() {
+        return this.isDone;
+    }
+
     public void markAsDone(){
         this.isDone = true;
     }
