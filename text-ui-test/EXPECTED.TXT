@@ -4,39 +4,103 @@ What’s on the agenda today?
  ( •.•)
  (  - )♡
 
-You:Cleo: Hi there! How can I help you today?:)
-You:Cleo: Got it. I have added this task:
-[T] [ ] read book
+____________________________________________________________
+You:____________________________________________________________
+Cleo: Hi there! How can I help you today?:)
+You:____________________________________________________________
+Cleo: Got it. I have added this task:
+[T] [ ] Buy groceries
 Now you have 1 tasks in the list.
-You:Cleo: Got it. I have added this task:
-[D] [ ] return book (by: Sunday)
+You:____________________________________________________________
+Cleo: Noted, I've removed this task:
+    [T] [ ] Buy groceries
+Now you have 0 tasks in the list.
+You:____________________________________________________________
+Cleo: Please enter a todo description!
+You:____________________________________________________________
+Cleo: Got it. I have added this task:
+[T] [ ] Finish homework
+Now you have 1 tasks in the list.
+You:____________________________________________________________
+Cleo: Noted, I've removed this task:
+    [T] [ ] Finish homework
+Now you have 0 tasks in the list.
+You:____________________________________________________________
+Cleo: The deadline cannot be in the past!
+You:____________________________________________________________
+Cleo: Got it. I have added this task:
+[D] [ ] Finish project (by: Dec 10 2024 10:00 am)
+Now you have 1 tasks in the list.
+You:____________________________________________________________
+Cleo: Noted, I've removed this task:
+    [D] [ ] Finish project (by: Dec 10 2024 10:00 am)
+Now you have 0 tasks in the list.
+You:____________________________________________________________
+Cleo: The deadline cannot be in the past!
+You:____________________________________________________________
+Cleo: Invalid date and time format! Please use the format 'yyyy-MM-dd HH:mm'.
+You:____________________________________________________________
+Cleo: Please provide a valid task number.
+You:____________________________________________________________
+Cleo: Please provide a valid task number.
+You:____________________________________________________________
+Cleo: The date(s) cannot be in the past!
+You:____________________________________________________________
+Cleo: Got it. I have added this task:
+[E] [ ] Concert (from: Dec 12 2024 06:00 pm to: Dec 12 2024 10:00 pm)
+Now you have 1 tasks in the list.
+You:____________________________________________________________
+Cleo: The date(s) cannot be in the past!
+You:____________________________________________________________
+Cleo: Got it. I have added this task:
+[E] [ ] Dinner party (from: Dec 05 2024 08:00 pm to: Dec 05 2024 10:00 pm)
 Now you have 2 tasks in the list.
-You:Cleo: Got it. I have added this event:
-[E] [ ] project meeting (from: Mon 2pm to: 4pm)
+You:____________________________________________________________
+Cleo: Got it. I have added this task:
+[E] [ ] Interview (from: Dec 10 2024 10:00 am to: Dec 10 2024 12:00 pm)
 Now you have 3 tasks in the list.
-You:Cleo: Here are your tasks:
-1.[T] [ ] read book
-2.[D] [ ] return book (by: Sunday)
-3.[E] [ ] project meeting (from: Mon 2pm to: 4pm)
-You:Cleo: Great job! I've marked this task as done:
-    [D] [X] return book (by: Sunday)
-You:Cleo: Here are your tasks:
-1.[T] [ ] read book
-2.[D] [X] return book (by: Sunday)
-3.[E] [ ] project meeting (from: Mon 2pm to: 4pm)
-You:Cleo: Okay! I've unmarked this task as not done yet:
-    [D] [ ] return book (by: Sunday)
-You:Cleo: Here are your tasks:
-1.[T] [ ] read book
-2.[D] [ ] return book (by: Sunday)
-3.[E] [ ] project meeting (from: Mon 2pm to: 4pm)
-You:Cleo: Noted, I've removed this task:
-    [E] [ ] project meeting (from: Mon 2pm to: 4pm)
+You:____________________________________________________________
+Cleo: Here are your tasks:
+1.[E] [ ] Concert (from: Dec 12 2024 06:00 pm to: Dec 12 2024 10:00 pm)
+2.[E] [ ] Dinner party (from: Dec 05 2024 08:00 pm to: Dec 05 2024 10:00 pm)
+3.[E] [ ] Interview (from: Dec 10 2024 10:00 am to: Dec 10 2024 12:00 pm)
+You:____________________________________________________________
+Cleo: Great job! I've marked this task as done:
+    [E] [X] Interview (from: Dec 10 2024 10:00 am to: Dec 10 2024 12:00 pm)
+You:____________________________________________________________
+Cleo: Okay! I've unmarked this task as not done yet:
+    [E] [ ] Interview (from: Dec 10 2024 10:00 am to: Dec 10 2024 12:00 pm)
+You:____________________________________________________________
+Cleo: Noted, I've removed this task:
+    [E] [ ] Dinner party (from: Dec 05 2024 08:00 pm to: Dec 05 2024 10:00 pm)
 Now you have 2 tasks in the list.
-You:Cleo: Here are your tasks:
-1.[T] [ ] read book
-2.[D] [ ] return book (by: Sunday)
-You:Cleo: Please enter a todo description!
-You:Cleo: Please provide a valid task number.
-You:Cleo: Please provide a valid task number.
-You:Cleo: Goodbye, hope to see you again soon! :)
+You:____________________________________________________________
+Cleo: Invalid date and time format! Please use the format 'yyyy-MM-dd HH:mm'.
+You:____________________________________________________________
+Cleo: Got it. I have added this task:
+[E] [ ] New Year Celebration (from: Dec 31 2024 11:00 pm to: Jan 01 2025 01:00 am)
+Now you have 3 tasks in the list.
+You:____________________________________________________________
+Cleo: Got it. I have added this task:
+[D] [ ] Review report (by: Feb 28 2025 09:00 am)
+Now you have 4 tasks in the list.
+You:____________________________________________________________
+Cleo: Please provide a valid task number.
+You:____________________________________________________________
+Cleo: Noted, I've removed this task:
+    [D] [ ] Review report (by: Feb 28 2025 09:00 am)
+Now you have 3 tasks in the list.
+You:____________________________________________________________
+Cleo: Noted, I've removed this task:
+    [E] [ ] New Year Celebration (from: Dec 31 2024 11:00 pm to: Jan 01 2025 01:00 am)
+Now you have 2 tasks in the list.
+You:____________________________________________________________
+Cleo: Noted, I've removed this task:
+    [E] [ ] Interview (from: Dec 10 2024 10:00 am to: Dec 10 2024 12:00 pm)
+Now you have 1 tasks in the list.
+You:____________________________________________________________
+Cleo: Noted, I've removed this task:
+    [E] [ ] Concert (from: Dec 12 2024 06:00 pm to: Dec 12 2024 10:00 pm)
+Now you have 0 tasks in the list.
+You:____________________________________________________________
+Cleo: Goodbye, hope to see you again soon! :)
