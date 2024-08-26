@@ -1,3 +1,5 @@
+package cleo;
+
 public class Parser {
 
     public enum CommandType {

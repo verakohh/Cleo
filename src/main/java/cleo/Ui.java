@@ -1,3 +1,4 @@
+package cleo;
 public class Ui {
     public void displayWelcomeMessage() {
         String logo = """
