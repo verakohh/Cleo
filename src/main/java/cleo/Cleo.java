@@ -1,11 +1,10 @@
-import java.awt.event.PaintEvent;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+package cleo;
+
+import cleo.task.*;
+
 import java.util.Scanner;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+
 
 
 public class Cleo {
