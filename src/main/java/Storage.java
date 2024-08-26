@@ -76,7 +76,7 @@ public class Storage {
         } else if (type.equals("E")) {
             task = new Events(desc, parts[3], parts[4]);
         }
-        if (done == "1") {
+        if (done.equals("1")) {
             task.markAsDone();
         }
         return task;
