@@ -1,6 +1,10 @@
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 
 public class Cleo {
@@ -155,10 +159,11 @@ public class Cleo {
             System.out.println("Cleo: Got it. I have added this task:");
             System.out.println(tasks.get(tasks.size() - 1));
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-        } catch (CleoException e) {
-            throw new CleoException("Oops! The description of a deadline cannot be empty.");
+        }  catch (IllegalArgumentException e) {
+            throw new CleoException(e.getMessage());
         }
     }
+
 
     private static void addEventTask(String input, ArrayList<Task> tasks) throws CleoException {
         try {
@@ -175,8 +180,8 @@ public class Cleo {
             System.out.println("Cleo: Got it. I have added this event:");
             System.out.println(tasks.get(tasks.size() - 1));
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-        } catch (CleoException e) {
-            throw new CleoException("Oops! The description of an event cannot be empty.");
+        } catch (IllegalArgumentException e) {
+            throw new CleoException(e.getMessage());
         }
     }
 
