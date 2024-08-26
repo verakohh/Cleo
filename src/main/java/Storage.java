@@ -42,10 +42,11 @@ public class Storage {
         return tasks;
     }
 
-    public void saveTasks(ArrayList<Task> tasks) {
+    public void saveTasks(TaskList tasks) {
         try {
             FileWriter fw = new FileWriter(filePath);
-            for (Task task : tasks) {
+            for (int i = 0; i< tasks.size(); i++) {
+                Task task = tasks.getTask(i);
                 if (task instanceof ToDos) {
                     fw.write("T | " + (task.isDoneString() ? "1" : "0") + " | " + task.getDescription() + "\n");
                 } else if (task instanceof Deadline) {

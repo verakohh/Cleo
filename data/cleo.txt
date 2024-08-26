@@ -1,3 +1,1 @@
-E | 0 | call | 4 | 5
-D | 1 | meow | Sunday 2359
-T | 0 | clean house
+T | 0 | faejfe

@@ -1,15 +1,31 @@
 hi
-todo read book
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
-list
-mark 2
-list
-unmark 2
-list
-delete 3
-list
+todo Buy groceries
+delete 1
 todo
-mark rjear
-delete 10
+todo Finish homework
+delete 1
+deadline Submit assignment /by 2023-12-25 23:59
+deadline Finish project /by 2024-12-10 10:00
+delete 1
+deadline Pay bills /by 2023-10-30 12:00
+deadline Prepare presentation /by 2023-12-10 25:00
+delete 2
+delete 1
+event Project meeting /from 2023-12-10 14:00 /to 2023-12-10 12:00
+event Concert /from 2024-12-12 18:00 /to 2024-12-12 22:00
+event Conference /from 2024-12-15 09:00 /to 2023-12-14 18:00
+event Dinner party /from 2024-12-05 20:00 /to 2024-12-05 22:00
+event Interview /from 2024-12-10 10:00 /to 2024-12-10 12:00
+list
+mark 3
+unmark 3
+delete 2
+event Wedding /from 2024-13-10 18:00 /to 2024-13-10 20:00
+event New Year Celebration /from 2024-12-31 23:00 /to 2025-01-01 01:00
+deadline Review report /by 2025-02-30 09:00
+delete 5
+delete 4
+delete 3
+delete 2
+delete 1
 bye
