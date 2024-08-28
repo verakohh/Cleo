@@ -26,7 +26,7 @@ public class TaskTest {
     public void testGetStatusIcon() {
         assertEquals("[ ] ", task.getStatusIcon());
 
-        task.markAsDone();
+        task.setDone();
         assertEquals("[X] ", task.getStatusIcon());
     }
 
@@ -34,16 +34,16 @@ public class TaskTest {
     public void testMarkAsDone() {
         assertFalse(task.isDoneString());
 
-        task.markAsDone();
+        task.setDone();
         assertTrue(task.isDoneString());
     }
 
     @Test
     public void testUnmarkAsDone() {
-        task.markAsDone();
+        task.setDone();
         assertTrue(task.isDoneString());
 
-        task.unmarkAsDone();
+        task.setUndone();
         assertFalse(task.isDoneString());
     }
 
@@ -51,7 +51,7 @@ public class TaskTest {
     public void testToString() {
         assertEquals("[T] [ ] Finish homework", task.toString());
 
-        task.markAsDone();
+        task.setDone();
         assertEquals("[T] [X] Finish homework", task.toString());
     }
 }

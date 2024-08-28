@@ -86,7 +86,7 @@ public class Storage {
             task = new Events(desc, parts[3], parts[4]);
         }
         if (done.equals("1")) {
-            task.markAsDone();
+            task.setDone();
         }
         return task;
     }

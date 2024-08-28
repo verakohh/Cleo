@@ -20,10 +20,10 @@ public abstract class Task {
         return this.isDone;
     }
 
-    public void markAsDone(){
+    public void setDone(){
         this.isDone = true;
     }
-    public void unmarkAsDone(){
+    public void setUndone(){
         this.isDone = false;
     }
     @Override
