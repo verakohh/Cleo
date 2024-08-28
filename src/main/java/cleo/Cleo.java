@@ -29,7 +29,7 @@ public class Cleo {
      */
     public void run() {
         ui.displayWelcomeMessage();
-        
+    
         try (Scanner scanner = new Scanner(System.in)) {
             while (true) {
                 System.out.print("You: ");
@@ -39,52 +39,53 @@ public class Cleo {
     
                 try {
                     switch (command) {
-                    case BYE -> {
-                        System.out.println("Cleo: Goodbye, hope to see you again soon! :)");
-                        return;
+                        case BYE -> {
+                            System.out.println("Cleo: Goodbye, hope to see you again soon! :)");
+                            return;
+                        }
+                        case HI -> System.out.println("Cleo: Hi there! How can I help you today?:)");
+                        case LIST -> tasks.listTasks();
+                        case FIND -> findTask(userInput.substring(4).trim());
+                        case MARK -> {
+                            int taskNumber = Parser.parseTaskNumber(userInput.substring(5), tasks.size());
+                            tasks.getTask(taskNumber).setDone();
+                            System.out.println("Cleo: Great job! I've marked this task as done:");
+                            System.out.println("    " + tasks.getTask(taskNumber));
+                            storage.saveTasks(tasks);  // Save tasks to file
+                        }
+                        case UNMARK -> {
+                            int taskNumber = Parser.parseTaskNumber(userInput.substring(7), tasks.size());
+                            tasks.getTask(taskNumber).setUndone();
+                            System.out.println("Cleo: Okay! I've unmarked this task as not done yet:");
+                            System.out.println("    " + tasks.getTask(taskNumber));
+                            storage.saveTasks(tasks);  // Save tasks to file
+                        }
+                        case DELETE -> {
+                            int taskNumber = Parser.parseTaskNumber(userInput.substring(7), tasks.size());
+                            tasks.removeTask(taskNumber);
+                            storage.saveTasks(tasks);  // Save tasks to file
+                        }
+                        case TODO -> {
+                            addTodoTask(userInput.substring(4).trim());
+                            storage.saveTasks(tasks);  // Save tasks to file
+                        }
+                        case DEADLINE -> {
+                            addDeadlineTask(userInput.substring(8).trim());
+                            storage.saveTasks(tasks);  // Save tasks to file
+                        }
+                        case EVENT -> {
+                            addEventTask(userInput.substring(5).trim());
+                            storage.saveTasks(tasks);  // Save tasks to file
+                        }
+                        case INVALID -> System.out.println("Cleo: Invalid command!");
                     }
-                    case HI -> System.out.println("Cleo: Hi there! How can I help you today?:)");
-                    case LIST -> tasks.listTasks();
-                    case FIND -> findTask(userInput.substring(4).trim());
-                    case MARK -> {
-                        int taskNumber = Parser.parseTaskNumber(userInput.substring(5), tasks.size());
-                        tasks.getTask(taskNumber).setDone();
-                        System.out.println("Cleo: Great job! I've marked this task as done:");
-                        System.out.println("    " + tasks.getTask(taskNumber));
-                        storage.saveTasks(tasks);  // Save tasks to file
-                    }
-                    case UNMARK -> {
-                        int taskNumber = Parser.parseTaskNumber(userInput.substring(7), tasks.size());
-                        tasks.getTask(taskNumber).setUndone();
-                        System.out.println("Cleo: Okay! I've unmarked this task as not done yet:");
-                        System.out.println("    " + tasks.getTask(taskNumber));
-                        storage.saveTasks(tasks);  // Save tasks to file
-                    }
-                    case DELETE -> {
-                        int taskNumber = Parser.parseTaskNumber(userInput.substring(7), tasks.size());
-                        tasks.removeTask(taskNumber);
-                        storage.saveTasks(tasks);  // Save tasks to file
-                    }
-                    case TODO -> {
-                        addTodoTask(userInput.substring(4).trim());
-                        storage.saveTasks(tasks);  // Save tasks to file
-                    }
-                    case DEADLINE -> {
-                        addDeadlineTask(userInput.substring(8).trim());
-                        storage.saveTasks(tasks);  // Save tasks to file
-                    }
-                    case EVENT -> {
-                        addEventTask(userInput.substring(5).trim());
-                        storage.saveTasks(tasks);  // Save tasks to file
-                    }
-                    case INVALID -> System.out.println("Cleo: Invalid command!");
+                } catch (CleoException e) {
+                    System.out.println("Cleo: " + e.getMessage());
                 }
-            } catch (CleoException e) {
-                System.out.println("Cleo: " + e.getMessage());
             }
         }
-        scanner.close();
     }
+    
 
     /**
      * Searches for tasks in the task list based on the provided keyword.
