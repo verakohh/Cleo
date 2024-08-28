@@ -4,6 +4,7 @@ public class Parser {
 
     public enum CommandType {
         LIST,
+        FIND,
         MARK,
         UNMARK,
         DELETE,
@@ -17,6 +18,7 @@ public class Parser {
 
     public static CommandType parseCommand(String userInput) {
         if (userInput.startsWith("todo")) return CommandType.TODO;
+        if (userInput.startsWith("find")) return CommandType.FIND;
         if (userInput.startsWith("deadline")) return CommandType.DEADLINE;
         if (userInput.startsWith("event")) return CommandType.EVENT;
         if (userInput.equals("list")) return CommandType.LIST;
