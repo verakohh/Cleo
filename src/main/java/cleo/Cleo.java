@@ -29,13 +29,14 @@ public class Cleo {
      */
     public void run() {
         ui.displayWelcomeMessage();
+        
         try (Scanner scanner = new Scanner(System.in)) {
             while (true) {
-                System.out.print("You:");
+                System.out.print("You: ");
                 String userInput = scanner.nextLine();
                 Parser.CommandType command = Parser.parseCommand(userInput);
                 ui.showLineSeparator();
-
+    
                 try {
                     switch (command) {
                     case BYE -> {
@@ -44,6 +45,7 @@ public class Cleo {
                     }
                     case HI -> System.out.println("Cleo: Hi there! How can I help you today?:)");
                     case LIST -> tasks.listTasks();
+                    case FIND -> findTask(userInput.substring(4).trim());
                     case MARK -> {
                         int taskNumber = Parser.parseTaskNumber(userInput.substring(5), tasks.size());
                         tasks.getTask(taskNumber).setDone();
@@ -81,7 +83,37 @@ public class Cleo {
                     System.out.println("Cleo: " + e.getMessage());
                 }
             }
-            scanner.close();
+        }
+    }
+
+    /**
+     * Searches for tasks in the task list based on the provided keyword.
+     *
+     * @param input the keyword to search for in the task descriptions.
+     * @throws CleoException if the input is empty or no matching tasks are found.
+     */
+    private void findTask(String input) throws CleoException {
+        try {
+            int count = 0;
+            if (input.isEmpty()) {
+                throw new CleoException("Enter the keyword you want to search for.");
+            }
+            StringBuilder result = new StringBuilder();
+            for (int i = 0; i < tasks.size(); i++) {
+                Task task = tasks.getTask(i);
+                if (task.getDescription().contains(input)) {
+                    result.append((count + 1) + "." + task + "\n");
+                    count++;
+                }
+            }
+            if (count == 0) {
+                throw new CleoException("No matching tasks found in list!");
+            } else {
+                System.out.println("Cleo: Here are the matching task(s) in your list:");
+                System.out.println(result.toString());
+            }
+        } catch (CleoException e) {
+            System.out.println(e.getMessage());
         }
     }
 
