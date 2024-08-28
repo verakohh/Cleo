@@ -21,9 +21,12 @@ public class Cleo {
             tasks = new TaskList();
         }
     }
-
-
-
+    
+    /**
+     * Runs the main loop of the Cleo application, taking user input and executing corresponding commands.
+     *
+     * @throws CleoException if an error occurs during command execution
+     */
     public void run() {
         ui.displayWelcomeMessage();
         Scanner scanner = new Scanner(System.in);
@@ -82,9 +85,16 @@ public class Cleo {
             } catch (CleoException e) {
                 System.out.println("Cleo: " + e.getMessage());
             }
+            scanner.close();
         }
     }
 
+    /**
+     * Adds a new todo task to the task list.
+     *
+     * @param input A string containing the description of the todo task to be added
+     * @throws CleoException if the input description is empty
+     */
     private void addTodoTask(String input) throws CleoException {
         try {
             if (input.isEmpty()) {
@@ -96,6 +106,13 @@ public class Cleo {
         }
     }
 
+    /**
+     *    Adds a deadline task to the task list.
+     *    
+     *    @param input A string containing the description and deadline of the task, separated by '/by'.
+     *    
+     *    @throws CleoException If the deadline description or date is empty, or if the deadline is in the past.
+     */
     private void addDeadlineTask(String input) throws CleoException {
         try {
             String[] parts = input.split("/by", 2);
@@ -108,7 +125,11 @@ public class Cleo {
         }
     }
 
-
+    /**
+     * Adds an event task to the task list.
+     * @param input A string containing the description of the event, and start and end times, separated by '/from' and '/to'.
+     * @throws CleoException If the event description, start time, or end time is empty, or if the start time is after the end time.
+     */
     private void addEventTask(String input) throws CleoException {
         try {
             String[] parts = input.split("/from", 2);
@@ -125,6 +146,13 @@ public class Cleo {
             throw new CleoException(e.getMessage());
         }
     }
+
+    /**
+     * The main entry point of the Cleo application.
+     * 
+     * @param  args  Command line arguments (not used in this implementation)
+     * @throws CleoException if an error occurs during the execution of the Cleo application
+     */
     public static void main(String[] args) throws CleoException {
 
         new Cleo("./data/cleo.txt").run();
