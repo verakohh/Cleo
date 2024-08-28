@@ -78,12 +78,12 @@ public class Cleo {
                         storage.saveTasks(tasks);  // Save tasks to file
                     }
                     case INVALID -> System.out.println("Cleo: Invalid command!");
-                    }
-                } catch (CleoException e) {
-                    System.out.println("Cleo: " + e.getMessage());
                 }
+            } catch (CleoException e) {
+                System.out.println("Cleo: " + e.getMessage());
             }
         }
+        scanner.close();
     }
 
     /**
