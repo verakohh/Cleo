@@ -29,44 +29,39 @@ public class Cleo {
      */
     public void run() {
         ui.displayWelcomeMessage();
-        Scanner scanner = new Scanner(System.in);
+        try (Scanner scanner = new Scanner(System.in)) {
+            while (true) {
+                System.out.print("You:");
+                String userInput = scanner.nextLine();
+                Parser.CommandType command = Parser.parseCommand(userInput);
+                ui.showLineSeparator();
 
-        while (true) {
-            System.out.print("You:");
-            String userInput = scanner.nextLine();
-            Parser.CommandType command = Parser.parseCommand(userInput);
-            ui.showLineSeparator();
-
-            try {
-                switch (command) {
+                try {
+                    switch (command) {
                     case BYE -> {
                         System.out.println("Cleo: Goodbye, hope to see you again soon! :)");
                         return;
                     }
-                    case HI -> {
-                        System.out.println("Cleo: Hi there! How can I help you today?:)");
-                    }
+                    case HI -> System.out.println("Cleo: Hi there! How can I help you today?:)");
                     case LIST -> tasks.listTasks();
                     case MARK -> {
                         int taskNumber = Parser.parseTaskNumber(userInput.substring(5), tasks.size());
-                        tasks.getTask(taskNumber).markAsDone();
+                        tasks.getTask(taskNumber).setDone();
                         System.out.println("Cleo: Great job! I've marked this task as done:");
                         System.out.println("    " + tasks.getTask(taskNumber));
                         storage.saveTasks(tasks);  // Save tasks to file
                     }
                     case UNMARK -> {
                         int taskNumber = Parser.parseTaskNumber(userInput.substring(7), tasks.size());
-                        tasks.getTask(taskNumber).unmarkAsDone();
+                        tasks.getTask(taskNumber).setUndone();
                         System.out.println("Cleo: Okay! I've unmarked this task as not done yet:");
                         System.out.println("    " + tasks.getTask(taskNumber));
                         storage.saveTasks(tasks);  // Save tasks to file
-
                     }
                     case DELETE -> {
                         int taskNumber = Parser.parseTaskNumber(userInput.substring(7), tasks.size());
                         tasks.removeTask(taskNumber);
                         storage.saveTasks(tasks);  // Save tasks to file
-
                     }
                     case TODO -> {
                         addTodoTask(userInput.substring(4).trim());
@@ -81,9 +76,10 @@ public class Cleo {
                         storage.saveTasks(tasks);  // Save tasks to file
                     }
                     case INVALID -> System.out.println("Cleo: Invalid command!");
+                    }
+                } catch (CleoException e) {
+                    System.out.println("Cleo: " + e.getMessage());
                 }
-            } catch (CleoException e) {
-                System.out.println("Cleo: " + e.getMessage());
             }
             scanner.close();
         }
@@ -154,7 +150,6 @@ public class Cleo {
      * @throws CleoException if an error occurs during the execution of the Cleo application
      */
     public static void main(String[] args) throws CleoException {
-
         new Cleo("./data/cleo.txt").run();
     }
 

@@ -39,14 +39,14 @@ public abstract class Task {
     /**
      * Marks the task as done.
      */
-    public void markAsDone(){
+    public void setDone(){
         this.isDone = true;
     }
     
     /**
      * Unmarks the tasks as done.
      */
-    public void unmarkAsDone(){
+    public void setUndone(){
         this.isDone = false;
     }
 

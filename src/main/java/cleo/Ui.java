@@ -11,11 +11,11 @@ public class Ui {
         showLineSeparator();
     }
 
-    public static void showLoadingError() {
+    public void showLoadingError() {
         System.out.println("Error loading ui.");
     }
 
-    public static void showLineSeparator() {
+    public void showLineSeparator() {
         System.out.println("____________________________________________________________");
     }
     public static void main(String[] args) {
