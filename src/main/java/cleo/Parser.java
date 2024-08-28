@@ -15,6 +15,12 @@ public class Parser {
         INVALID;
     }
 
+    /**
+     * Parse the user input to determine the command type.
+     * @param userInput A string containing the user input
+     * @return CommandType
+     */
+
     public static CommandType parseCommand(String userInput) {
         if (userInput.startsWith("todo")) return CommandType.TODO;
         if (userInput.startsWith("deadline")) return CommandType.DEADLINE;
@@ -27,6 +33,14 @@ public class Parser {
         if (userInput.equals("hi") || userInput.equals("hello")) return CommandType.HI;
         return CommandType.INVALID;
     }
+
+    /**
+     * Parse the user input to determine the task number.
+     * @param userInput A string containing the task number to be changed
+     * @param taskListSize A integer representing the size of the task list
+     * @return An integer representing the task number
+     * @throws CleoException If the task number is out of range or not a valid integer
+     */
 
     public static int parseTaskNumber(String userInput, int taskListSize) throws CleoException {
         try {
