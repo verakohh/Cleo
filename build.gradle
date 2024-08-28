@@ -29,11 +29,13 @@ test {
 
 application {
     mainClass.set("cleo.Cleo")
+    mainClassName = "cleo.Cleo"
 }
 
 shadowJar {
     archiveBaseName = "Cleo"
     archiveClassifier = null
+    archiveFileName = "Cleo.jar"
 }
 
 run{
