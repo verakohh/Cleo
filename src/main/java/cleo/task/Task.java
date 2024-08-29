@@ -12,7 +12,7 @@ public abstract class Task {
     /**
      * Returns the status icon based on the value of the `isDone` flag.
      *
-     * @return the status icon as a string, either "[X] " if `isDone` is true, or "[ ] " if `isDone` is false
+     * @return the status icon as a string, either "[X] " if `isDone` is true, or "[ ] " if `isDone` is false.
      */
     public String getStatusIcon() {
         return (isDone ? "[X] " : "[ ] ");
@@ -21,7 +21,7 @@ public abstract class Task {
     /**
      * Returns the description of the task as a string.
      *
-     * @return the description of the task
+     * @return the description of the task.
      */
     public String getDescription() {
         return this.description;
@@ -30,7 +30,7 @@ public abstract class Task {
     /**
      * Returns the value of the `isDone` flag.
      * 
-     * @return the value of the `isDone` flag
+     * @return the value of the `isDone` flag.
      */
     public Boolean isDoneString() {
         return this.isDone;
@@ -51,9 +51,9 @@ public abstract class Task {
     }
 
     /**
-     * Returns a string representation of the task
+     * Returns a string representation of the task.
      * 
-     * @return a string representation of the taskn in the format "[is_done] description"
+     * @return a string representation of the taskn in the format "[is_done] description".
      */
     @Override
     public String toString() {

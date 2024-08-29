@@ -25,7 +25,6 @@ public class Cleo {
     /**
      * Runs the main loop of the Cleo application, taking user input and executing corresponding commands.
      *
-     * @throws CleoException if an error occurs during command execution
      */
     public void run() {
         ui.displayWelcomeMessage();
@@ -121,8 +120,8 @@ public class Cleo {
     /**
      * Adds a new todo task to the task list.
      *
-     * @param input A string containing the description of the todo task to be added
-     * @throws CleoException if the input description is empty
+     * @param input A string containing the description of the todo task to be added.
+     * @throws CleoException if the input description is empty.
      */
     private void addTodoTask(String input) throws CleoException {
         try {
@@ -179,8 +178,8 @@ public class Cleo {
     /**
      * The main entry point of the Cleo application.
      * 
-     * @param  args  Command line arguments (not used in this implementation)
-     * @throws CleoException if an error occurs during the execution of the Cleo application
+     * @param  args  Command line arguments (not used in this implementation).
+     * @throws CleoException if an error occurs during the execution of the Cleo application.
      */
     public static void main(String[] args) throws CleoException {
         new Cleo("./data/cleo.txt").run();

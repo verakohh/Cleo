@@ -21,6 +21,7 @@ public class Storage {
         ensureDataFolderExists();
 
     }
+
     /**
      * Ensures that the data folder exists, creating it if it doesn't.
      */
@@ -31,11 +32,11 @@ public class Storage {
             System.out.println("Data folder not found. Creating './data' directory now!");
         }
     }
+
     /** 
      * Load tasks from the specified file. Converts the string into tasks. If file isn't found, creates a new one.
-     * @return An array list of tasks
+     * @return An array list of tasks.
      */
-
     public ArrayList<Task> loadTasks() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -61,7 +62,7 @@ public class Storage {
     /**
      * Save tasks from task list to the specified file.
      * Saved in a format that can be parsed later to recreat the Task objects.
-     * @param tasks An array list of tasks
+     * @param tasks An array list of tasks.
      */
     public void saveTasks(TaskList tasks) {
         try {
@@ -84,6 +85,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Returns a task based on the file content in specified file.
+     *
+     * @param taskContent is a string that contains the task.
+     * @return a new task made from the string.
+     * @throws FileNotFoundException if file is not found.
+     */
     private Task parseTask(String taskContent) throws FileNotFoundException {
         String[] parts = taskContent.split(" \\| ");
         String type = parts[0];
