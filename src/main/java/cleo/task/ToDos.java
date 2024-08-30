@@ -8,6 +8,7 @@ public class ToDos extends Task {
 
         /**
          * Returns the string description of the task.
+         *
          * @return the string description of the task in the format "[T] description".
          */
         @Override

@@ -13,7 +13,8 @@ public class TaskList {
     }
 
     /** 
-     * Add a task to the list.
+     * Adds a task to the list.
+     *
      * @param task the task to be added.
      */
     public void addTask(Task task) {
@@ -24,7 +25,7 @@ public class TaskList {
     }
 
     /**
-     * Remove a task from the list.
+     * Removes a task from the list.
      * 
      * @param taskNumber the index of the task that will be removed.
      */
@@ -47,6 +48,7 @@ public class TaskList {
 
     /**
      * Returns the size of the task list.
+     *
      * @return the size of the task list as an integer.
      */
     public int size() {

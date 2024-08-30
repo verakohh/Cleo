@@ -12,6 +12,7 @@ public class Events extends Task {
 
     /** 
      * Creates a new Events task.
+     *
      * @param description A string containing the description of the event.
      * @param from A string containing the start time of the event in yyyy-MM-dd HH:mm format.
      * @param to A string containing the end time of the event in yyyy-MM-dd HH:mm format/
@@ -34,6 +35,7 @@ public class Events extends Task {
     
     /**
      * Returns the start time of the event.
+     *
      * @return The start time of the event in MMM dd yyyy hh:mm a format.
      */
     public String getFrom() {
@@ -42,6 +44,7 @@ public class Events extends Task {
 
     /**
      * Returns the end time of the event.
+     *
      * @return The end time of the event in MMM dd yyyy hh:mm a format.
      */
     public String getTo() {
@@ -50,6 +53,7 @@ public class Events extends Task {
 
     /**
      * Returns a string representation of the Events task.
+     *
      * @return A string in the format "[E] description (from: start_time to: end_time)".
      */
     @Override

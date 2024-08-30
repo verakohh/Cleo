@@ -17,7 +17,8 @@ public class Parser {
     }
 
     /**
-     * Parse the user input to determine the command type.
+     * Parses the user input to determine the command type.
+     *
      * @param userInput A string containing the user input
      * @return CommandType to call the command.
      */
@@ -36,7 +37,8 @@ public class Parser {
     }
 
     /**
-     * Parse the user input to determine the task number.
+     * Parses the user input to determine the task number.
+     *
      * @param userInput A string containing the task number to be changed.
      * @param taskListSize A integer representing the size of the task list.
      * @return An integer representing the task number.

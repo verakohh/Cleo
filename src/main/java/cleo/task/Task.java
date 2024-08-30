@@ -44,7 +44,7 @@ public abstract class Task {
     }
     
     /**
-     * Unmarks the tasks as done.
+     * Marks the tasks as not done.
      */
     public void setUndone(){
         this.isDone = false;

@@ -34,7 +34,9 @@ public class Storage {
     }
 
     /** 
-     * Load tasks from the specified file. Converts the string into tasks. If file isn't found, creates a new one.
+     * Loads tasks from the specified file.
+     * Converts the string into tasks. If file isn't found, creates a new one.
+     *
      * @return An array list of tasks.
      */
     public ArrayList<Task> loadTasks() throws IOException {
@@ -60,8 +62,9 @@ public class Storage {
 
 
     /**
-     * Save tasks from task list to the specified file.
+     * Saves tasks from task list to the specified file.
      * Saved in a format that can be parsed later to recreat the Task objects.
+     *
      * @param tasks An array list of tasks.
      */
     public void saveTasks(TaskList tasks) {

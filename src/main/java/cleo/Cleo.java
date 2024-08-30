@@ -138,7 +138,6 @@ public class Cleo {
      *    Adds a deadline task to the task list.
      *    
      *    @param input A string containing the description and deadline of the task, separated by '/by'.
-     *    
      *    @throws CleoException If the deadline description or date is empty, or if the deadline is in the past.
      */
     private void addDeadlineTask(String input) throws CleoException {
@@ -155,6 +154,7 @@ public class Cleo {
 
     /**
      * Adds an event task to the task list.
+     *
      * @param input A string containing the description of the event, and start and end times, separated by '/from' and '/to'.
      * @throws CleoException If the event description, start time, or end time is empty, or if the start time is after the end time.
      */
@@ -176,7 +176,7 @@ public class Cleo {
     }
 
     /**
-     * The main entry point of the Cleo application.
+     * Runs the main entry point of the Cleo application.
      * 
      * @param  args  Command line arguments (not used in this implementation).
      * @throws CleoException if an error occurs during the execution of the Cleo application.
