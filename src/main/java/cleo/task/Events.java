@@ -3,14 +3,17 @@ package cleo.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
+/**
+ * Represents an event task with a start time and an end time.
+ * Inherits from the Task class and stores the event's start and end times as LocalDateTime.
+ */
 public class Events extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    DateTimeFormatter printformatter = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private DateTimeFormatter printformatter = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
 
-    /** 
+    /**
      * Creates a new Events task.
      *
      * @param description A string containing the description of the event.
@@ -29,10 +32,10 @@ public class Events extends Task {
                 throw new IllegalArgumentException("The end time of the event should be later than the start time!");
             }
         } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException("Invalid date and time format! Please use the format 'yyyy-MM-dd HH:mm'.");
+            throw new IllegalArgumentException("Invalid date and time format! "
+                    + "Please use the format 'yyyy-MM-dd HH:mm'.");
         }
     }
-    
     /**
      * Returns the start time of the event.
      *

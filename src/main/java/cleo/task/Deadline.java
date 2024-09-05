@@ -3,11 +3,14 @@ package cleo.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
+/**
+ * Represents a task with a deadline.
+ * Inherits from the Task class and stores the deadline in LocalDateTime format.
+ */
 public class Deadline extends Task {
     protected LocalDateTime by;
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    DateTimeFormatter printformatter = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private DateTimeFormatter printformatter = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
 
     /**
      * Creates a new Deadline task.
@@ -24,13 +27,14 @@ public class Deadline extends Task {
                 throw new IllegalArgumentException("The deadline cannot be in the past!");
             }
         } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException("Invalid date and time format! Please use the format 'yyyy-MM-dd HH:mm'.");
+            throw new IllegalArgumentException("Invalid date and time format! "
+                    + "Please use the format 'yyyy-MM-dd HH:mm'.");
         }
     }
 
     /**
      * Returns the deadline date and time.
-     * 
+     *
      * @return The deadline date and time in MMM dd yyyy hh:mm a format.
      */
     public String getBy() {

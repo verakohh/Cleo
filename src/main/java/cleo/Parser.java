@@ -1,7 +1,12 @@
 package cleo;
 
+/**
+ * Handles tasks based on user input.
+ */
 public class Parser {
-
+    /**
+     * Represents list of tasks available.
+     */
     public enum CommandType {
         LIST,
         FIND,
@@ -23,16 +28,36 @@ public class Parser {
      * @return CommandType to call the command.
      */
     public static CommandType parseCommand(String userInput) {
-        if (userInput.startsWith("todo")) return CommandType.TODO;
-        if (userInput.startsWith("find")) return CommandType.FIND;
-        if (userInput.startsWith("deadline")) return CommandType.DEADLINE;
-        if (userInput.startsWith("event")) return CommandType.EVENT;
-        if (userInput.equals("list")) return CommandType.LIST;
-        if (userInput.startsWith("mark")) return CommandType.MARK;
-        if (userInput.startsWith("unmark")) return CommandType.UNMARK;
-        if (userInput.startsWith("delete")) return CommandType.DELETE;
-        if (userInput.equals("bye")) return CommandType.BYE;
-        if (userInput.equals("hi") || userInput.equals("hello")) return CommandType.HI;
+        if (userInput.startsWith("todo")) {
+            return CommandType.TODO;
+        }
+        if (userInput.startsWith("find")) {
+            return CommandType.FIND;
+        }
+        if (userInput.startsWith("deadline")) {
+            return CommandType.DEADLINE;
+        }
+        if (userInput.startsWith("event")) {
+            return CommandType.EVENT;
+        }
+        if (userInput.equals("list")) {
+            return CommandType.LIST;
+        }
+        if (userInput.startsWith("mark")) {
+            return CommandType.MARK;
+        }
+        if (userInput.startsWith("unmark")) {
+            return CommandType.UNMARK;
+        }
+        if (userInput.startsWith("delete")) {
+            return CommandType.DELETE;
+        }
+        if (userInput.equals("bye")) {
+            return CommandType.BYE;
+        }
+        if (userInput.equals("hi") || userInput.equals("hello")) {
+            return CommandType.HI;
+        }
         return CommandType.INVALID;
     }
 

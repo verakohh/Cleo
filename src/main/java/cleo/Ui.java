@@ -1,13 +1,22 @@
 package cleo;
+
+/**
+ * Represents the user interface of the Cleo chatbot.
+ * Provides methods to display messages and separators in the console.
+ */
 public class Ui {
+    /**
+     * Displays the welcome message when the Cleo chatbot is started.
+     * Includes a simple ASCII art of a cute character to greet the user.
+     */
     public void displayWelcomeMessage() {
         String logo = """
                   /)/) \s
                  ( •.•)
                  (  - )♡
                 """;
-        System.out.println("Good day! I’m Cleo, your personal assistant,\n" +
-                "What’s on the agenda today?\n" + logo);
+        System.out.println("Good day! I’m Cleo, your personal assistant,\n"
+                + "What’s on the agenda today?\n" + logo);
         showLineSeparator();
     }
 

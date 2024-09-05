@@ -1,9 +1,8 @@
 package cleo;
-
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 public class ParserTest {
 
@@ -19,7 +18,8 @@ public class ParserTest {
 
     @Test
     public void testParseCommand_event() {
-        assertEquals(Parser.CommandType.EVENT, Parser.parseCommand("event team meeting /from 2024-12-01 14:00 /to 2024-12-01 16:00"));
+        assertEquals(Parser.CommandType.EVENT, Parser.parseCommand("event team meeting /from 2024-12-01 14:00 "
+                + "/to 2024-12-01 16:00"));
     }
 
     @Test

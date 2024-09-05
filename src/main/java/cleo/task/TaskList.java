@@ -2,6 +2,11 @@ package cleo.task;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks. Provides methods to add, remove, retrieve tasks,
+ * and print the list of tasks. Tasks are stored internally in an ArrayList.
+ */
+
 public class TaskList {
     private ArrayList<Task> tasks;
 
@@ -12,7 +17,7 @@ public class TaskList {
         this.tasks = tasks;
     }
 
-    /** 
+    /**
      * Adds a task to the list.
      *
      * @param task the task to be added.
@@ -26,7 +31,7 @@ public class TaskList {
 
     /**
      * Removes a task from the list.
-     * 
+     *
      * @param taskNumber the index of the task that will be removed.
      */
     public void removeTask(int taskNumber) {
@@ -35,17 +40,38 @@ public class TaskList {
         System.out.println("    " + removedTask);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
-
-    /** 
+    /**
      * Returns the task at the specified index.
-     * 
+     *
      * @param taskNumber the index of the task.
      * @return the task at the specified index.
      */
     public Task getTask(int taskNumber) {
         return tasks.get(taskNumber);
     }
+    /**
+     * Marks the task at the specified index as done.
+     *
+     * @param taskNumber is an integer for the task index.
+     */
+    public void setDone(int taskNumber) {
+        Task task = tasks.get(taskNumber);
+        task.setDone();
+        System.out.println("Cleo: Great job! I've marked this task as done:");
+        System.out.println("    " + task);
+    }
 
+    /**
+     * Marks the task at the specified index as not done.
+     *
+     * @param taskNumber is an integer for the task index.
+     */
+    public void setUndone(int taskNumber) {
+        Task task = tasks.get(taskNumber);
+        task.setUndone();
+        System.out.println("Cleo: Okay! I've unmarked this task as not done yet:");
+        System.out.println("    " + task);
+    }
     /**
      * Returns the size of the task list.
      *
