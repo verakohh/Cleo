@@ -1,9 +1,18 @@
 package cleo.task;
 
-
+/**
+ * Represents an abstract task.
+ * A task contains a description and a status indicating whether it is done or not.
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
+    /**
+     *  Constructs a new Task with the given description.
+     * The task is initially marked as not done.
+     *
+     * @param description The description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -29,7 +38,7 @@ public abstract class Task {
 
     /**
      * Returns the value of the `isDone` flag.
-     * 
+     *
      * @return the value of the `isDone` flag.
      */
     public Boolean isDoneString() {
@@ -39,20 +48,19 @@ public abstract class Task {
     /**
      * Marks the task as done.
      */
-    public void setDone(){
+    public void setDone() {
         this.isDone = true;
     }
-    
     /**
      * Marks the tasks as not done.
      */
-    public void setUndone(){
+    public void setUndone() {
         this.isDone = false;
     }
 
     /**
      * Returns a string representation of the task.
-     * 
+     *
      * @return a string representation of the taskn in the format "[is_done] description".
      */
     @Override

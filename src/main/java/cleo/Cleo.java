@@ -1,16 +1,27 @@
 package cleo;
 
-import cleo.task.*;
-
-import java.util.Scanner;
 import java.io.IOException;
+import java.util.Scanner;
 
+import cleo.task.Deadline;
+import cleo.task.Events;
+import cleo.task.Task;
+import cleo.task.TaskList;
+import cleo.task.ToDos;
 
-
+/**
+ * Represents the Cleo chatbot and its tasks.
+ */
 public class Cleo {
-    private Storage storage;
-    private Ui ui;
+    private final Storage storage;
+    private final Ui ui;
     private TaskList tasks;
+
+    /**
+     * Loads the available tasks file if there is in the folder.
+     *
+     * @param filePath is a string that contains path of file that store taskslist.
+     */
     public Cleo(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -21,62 +32,56 @@ public class Cleo {
             tasks = new TaskList();
         }
     }
-    
     /**
      * Runs the main loop of the Cleo application, taking user input and executing corresponding commands.
      *
      */
     public void run() {
         ui.displayWelcomeMessage();
-    
         try (Scanner scanner = new Scanner(System.in)) {
             while (true) {
                 System.out.print("You: ");
                 String userInput = scanner.nextLine();
                 Parser.CommandType command = Parser.parseCommand(userInput);
                 ui.showLineSeparator();
-    
                 try {
                     switch (command) {
-                        case BYE -> {
-                            System.out.println("Cleo: Goodbye, hope to see you again soon! :)");
-                            return;
-                        }
-                        case HI -> System.out.println("Cleo: Hi there! How can I help you today?:)");
-                        case LIST -> tasks.listTasks();
-                        case FIND -> findTask(userInput.substring(4).trim());
-                        case MARK -> {
-                            int taskNumber = Parser.parseTaskNumber(userInput.substring(5), tasks.size());
-                            tasks.getTask(taskNumber).setDone();
-                            System.out.println("Cleo: Great job! I've marked this task as done:");
-                            System.out.println("    " + tasks.getTask(taskNumber));
-                            storage.saveTasks(tasks);  // Save tasks to file
-                        }
-                        case UNMARK -> {
-                            int taskNumber = Parser.parseTaskNumber(userInput.substring(7), tasks.size());
-                            tasks.getTask(taskNumber).setUndone();
-                            System.out.println("Cleo: Okay! I've unmarked this task as not done yet:");
-                            System.out.println("    " + tasks.getTask(taskNumber));
-                            storage.saveTasks(tasks);  // Save tasks to file
-                        }
-                        case DELETE -> {
-                            int taskNumber = Parser.parseTaskNumber(userInput.substring(7), tasks.size());
-                            tasks.removeTask(taskNumber);
-                            storage.saveTasks(tasks);  // Save tasks to file
-                        }
-                        case TODO -> {
-                            addTodoTask(userInput.substring(4).trim());
-                            storage.saveTasks(tasks);  // Save tasks to file
-                        }
-                        case DEADLINE -> {
-                            addDeadlineTask(userInput.substring(8).trim());
-                            storage.saveTasks(tasks);  // Save tasks to file
-                        }
-                        case EVENT -> {
-                            addEventTask(userInput.substring(5).trim());
-                            storage.saveTasks(tasks);  // Save tasks to file
-                        }
-                        case INVALID -> System.out.println("Cleo: Invalid command!");
+                    case BYE -> {
+                        System.out.println("Cleo: Goodbye, hope to see you again soon! :)");
+                        return;
+                    }
+                    case HI -> System.out.println("Cleo: Hi there! How can I help you today?:)");
+                    case LIST -> tasks.listTasks();
+                    case FIND -> findTask(userInput.substring(4).trim());
+                    case MARK -> {
+                        int taskNumber = Parser.parseTaskNumber(userInput.substring(5), tasks.size());
+                        tasks.getTask(taskNumber).setDone();
+                        storage.saveTasks(tasks); // Save tasks to file
+                    }
+                    case UNMARK -> {
+                        int taskNumber = Parser.parseTaskNumber(userInput.substring(7), tasks.size());
+                        tasks.getTask(taskNumber).setUndone();
+                        storage.saveTasks(tasks); // Save tasks to file
+                    }
+                    case DELETE -> {
+                        int taskNumber = Parser.parseTaskNumber(userInput.substring(7), tasks.size());
+                        tasks.removeTask(taskNumber);
+                        storage.saveTasks(tasks); // Save tasks to file
+                    }
+                    case TODO -> {
+                        addTodoTask(userInput.substring(4).trim());
+                        storage.saveTasks(tasks); // Save tasks to file
+                    }
+                    case DEADLINE -> {
+                        addDeadlineTask(userInput.substring(8).trim());
+                        storage.saveTasks(tasks); // Save tasks to file
+                    }
+                    case EVENT -> {
+                        addEventTask(userInput.substring(5).trim());
+                        storage.saveTasks(tasks); // Save tasks to file
+                    }
+                    case INVALID -> System.out.println("Cleo: Invalid command!");
+                    default -> System.out.println("Cleo: Unrecognised command!");
                     }
                 } catch (CleoException e) {
                     System.out.println("Cleo: " + e.getMessage());
@@ -84,8 +89,6 @@ public class Cleo {
             }
         }
     }
-    
-
     /**
      * Searches for tasks in the task list based on the provided keyword.
      *
@@ -135,10 +138,10 @@ public class Cleo {
     }
 
     /**
-     *    Adds a deadline task to the task list.
-     *    
-     *    @param input A string containing the description and deadline of the task, separated by '/by'.
-     *    @throws CleoException If the deadline description or date is empty, or if the deadline is in the past.
+     * Adds a deadline task to the task list.
+     *
+     * @param input A string containing the description and deadline of the task, separated by '/by'.
+     * @throws CleoException If the deadline description or date is empty, or if the deadline is in the past.
      */
     private void addDeadlineTask(String input) throws CleoException {
         try {
@@ -147,16 +150,17 @@ public class Cleo {
                 throw new CleoException("Oops! The deadline description or date cannot be empty!");
             }
             tasks.addTask(new Deadline(parts[0].trim(), parts[1].trim()));
-        }  catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             throw new CleoException(e.getMessage());
         }
     }
-
     /**
      * Adds an event task to the task list.
      *
-     * @param input A string containing the description of the event, and start and end times, separated by '/from' and '/to'.
-     * @throws CleoException If the event description, start time, or end time is empty, or if the start time is after the end time.
+     * @param input A string containing the description of the event, and start and end times,
+     *          separated by '/from' and '/to'.
+     * @throws CleoException If the event description, start time, or end time is empty,
+     *          or if the start time is after the end time.
      */
     private void addEventTask(String input) throws CleoException {
         try {
@@ -177,7 +181,7 @@ public class Cleo {
 
     /**
      * Runs the main entry point of the Cleo application.
-     * 
+     *
      * @param  args  Command line arguments (not used in this implementation).
      * @throws CleoException if an error occurs during the execution of the Cleo application.
      */

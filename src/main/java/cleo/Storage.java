@@ -1,21 +1,29 @@
 package cleo;
-
-import cleo.task.Task;
-import cleo.task.ToDos;
-import cleo.task.Deadline;
-import cleo.task.Events;
-import cleo.task.TaskList;
-
 import java.io.File;
-import java.io.FileWriter;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import cleo.task.Deadline;
+import cleo.task.Events;
+import cleo.task.Task;
+import cleo.task.TaskList;
+import cleo.task.ToDos;
+
+/**
+ * Provides utility methods for storing and retrieiving
+ * tasks stored onto user's device.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Creates a new Storage object with the specified file path.
+     * Ensures that the data folder exists.
+     * @param filePath
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         ensureDataFolderExists();
@@ -33,7 +41,7 @@ public class Storage {
         }
     }
 
-    /** 
+    /**
      * Loads tasks from the specified file.
      * Converts the string into tasks. If file isn't found, creates a new one.
      *
@@ -70,16 +78,18 @@ public class Storage {
     public void saveTasks(TaskList tasks) {
         try {
             FileWriter fw = new FileWriter(filePath);
-            for (int i = 0; i< tasks.size(); i++) {
+            for (int i = 0; i < tasks.size(); i++) {
                 Task task = tasks.getTask(i);
                 if (task instanceof ToDos) {
                     fw.write("T | " + (task.isDoneString() ? "1" : "0") + " | " + task.getDescription() + "\n");
                 } else if (task instanceof Deadline) {
                     Deadline deadline = (Deadline) task;
-                    fw.write("D | " + (deadline.isDoneString() ? "1" : "0") + " | " + deadline.getDescription() + " | " + deadline.getBy() + "\n");
+                    fw.write("D | " + (deadline.isDoneString() ? "1" : "0")
+                            + " | " + deadline.getDescription() + " | " + deadline.getBy() + "\n");
                 } else if (task instanceof Events) {
                     Events event = (Events) task;
-                    fw.write("E | " + (event.isDoneString() ? "1" : "0") + " | " + event.getDescription() + " | " + event.getFrom() + " | " + event.getTo() + "\n");
+                    fw.write("E | " + (event.isDoneString() ? "1" : "0")
+                            + " | " + event.getDescription() + " | " + event.getFrom() + " | " + event.getTo() + "\n");
                 }
             }
             fw.close();
