@@ -40,6 +40,14 @@ public class Deadline extends Task {
     public String getBy() {
         return this.by.format(printformatter);
     }
+    /**
+     * Returns the end time of the event.
+     *
+     * @return The end time of the event in yyyy-MM-dd HH:mm format.
+     */
+    public String storeGetBy() {
+        return this.by.format(formatter);
+    }
 
     /**
      * Returns a string representation of the Deadline task.

@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -18,7 +19,7 @@ import cleo.task.ToDos;
  */
 public class Storage {
     private String filePath;
-
+    private SimpleDateFormat formatter = new SimpleDateFormat("MMM dd yyyy hh:mm a");
     /**
      * Creates a new Storage object with the specified file path.
      * Ensures that the data folder exists.
@@ -85,11 +86,12 @@ public class Storage {
                 } else if (task instanceof Deadline) {
                     Deadline deadline = (Deadline) task;
                     fw.write("D | " + (deadline.isDoneString() ? "1" : "0")
-                            + " | " + deadline.getDescription() + " | " + deadline.getBy() + "\n");
+                            + " | " + deadline.getDescription() + " | " + deadline.storeGetBy() + "\n");
                 } else if (task instanceof Events) {
                     Events event = (Events) task;
                     fw.write("E | " + (event.isDoneString() ? "1" : "0")
-                            + " | " + event.getDescription() + " | " + event.getFrom() + " | " + event.getTo() + "\n");
+                            + " | " + event.getDescription() + " | " + event.storeGetFrom() + " | " + event.storeGetTo()
+                            + "\n");
                 }
             }
             fw.close();

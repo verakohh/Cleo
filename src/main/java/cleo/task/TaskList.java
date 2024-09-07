@@ -2,6 +2,8 @@ package cleo.task;
 
 import java.util.ArrayList;
 
+import cleo.CleoException;
+
 /**
  * Represents a list of tasks. Provides methods to add, remove, retrieve tasks,
  * and print the list of tasks. Tasks are stored internally in an ArrayList.
@@ -83,15 +85,47 @@ public class TaskList {
 
     /**
      * Prints all the tasks in the list.
+     *
+     * @return A string containing all tasks in the list.
      */
-    public void listTasks() {
+    public String listTasks() {
         if (tasks.isEmpty()) {
-            System.out.println("Cleo: No tasks yet!");
+            return "Cleo: No tasks yet!";
         } else {
-            System.out.println("Cleo: Here are your tasks:");
+            StringBuilder result = new StringBuilder("Cleo: Here are your tasks:\n");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i + 1) + "." + tasks.get(i));
+                result.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
             }
+            return result.toString();
+        }
+    }
+    /**
+     * Finds tasks in the task list based on the provided keyword.
+     *
+     * @param keyword the keyword to search for in the task descriptions.
+     * @return A string containing the list of matching tasks.
+     * @throws CleoException if the keyword is empty or no matching tasks are found.
+     */
+    public String findTask(String keyword) throws CleoException {
+        if (keyword.isEmpty()) {
+            throw new CleoException("Enter the keyword you want to search for.");
+        }
+
+        StringBuilder result = new StringBuilder();
+        int count = 0;
+
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = getTask(i);
+            if (task.toString().toLowerCase().contains(keyword.toLowerCase())) {
+                result.append((count + 1)).append(". ").append(task).append("\n");
+                count++;
+            }
+        }
+
+        if (count == 0) {
+            throw new CleoException("No matching tasks found in list!");
+        } else {
+            return "Cleo: Here are the matching task(s) in your list:\n" + result.toString();
         }
     }
 }

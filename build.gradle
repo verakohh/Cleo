@@ -10,39 +10,34 @@ checkstyle {
     configFile = file('config/checkstyle/checkstyle.xml')
 }
 
-tasks.withType(Checkstyle).configureEach {
-    reports {
-        xml.required = false  // Disable XML reports
-        html.required = true  // Enable HTML reports
-    }
-}
-
 repositories {
     mavenCentral()
 }
 
+ext {
+    javaFxVersion = '17.0.7' // Update this to the version you use
+}
+
 dependencies {
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
+
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
 }
 
-test {
-    useJUnitPlatform()
-
-    testLogging {
-        events "passed", "skipped", "failed"
-
-        showExceptions true
-        exceptionFormat "full"
-        showCauses true
-        showStackTraces true
-        showStandardStreams = false
-    }
-}
-
 application {
-    mainClass.set("cleo.Cleo")
-    mainClassName = "cleo.Cleo"
+    mainClass.set("cleo.Main")
 }
 
 shadowJar {
@@ -51,6 +46,11 @@ shadowJar {
     archiveFileName = "Cleo.jar"
 }
 
-run{
+run {
     standardInput = System.in
+    jvmArgs = [
+            '--module-path', configurations.compileClasspath.asPath,
+            '--add-modules', 'javafx.controls,javafx.fxml'
+    ]
 }
+
