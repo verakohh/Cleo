@@ -2,12 +2,12 @@ package cleo;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 import cleo.task.Deadline;
 import cleo.task.Events;
+import cleo.task.Task;
 import cleo.task.TaskList;
 import cleo.task.ToDos;
 
@@ -18,6 +18,7 @@ public class Cleo {
     private final Storage storage;
     private final Ui ui;
     private TaskList tasks;
+    private String reply;
 
     /**
      * Loads the available tasks file if there is in the folder.
@@ -82,17 +83,17 @@ public class Cleo {
                 storage.saveTasks(tasks);
                 return "Cleo: Task(s) deleted!";
             case TODO:
-                addTodoTask(input.substring(4).trim());
+                reply = addTodoTask(input.substring(4).trim());
                 storage.saveTasks(tasks);
-                return "Cleo: Added TODO task(s)!";
+                return reply;
             case DEADLINE:
-                addDeadlineTask(input.substring(8).trim());
+                reply = addDeadlineTask(input.substring(8).trim());
                 storage.saveTasks(tasks);
-                return "Cleo: Added deadline task!";
+                return reply;
             case EVENT:
-                addEventTask(input.substring(5).trim());
+                reply = addEventTask(input.substring(5).trim());
                 storage.saveTasks(tasks);
-                return "Cleo: Added event task!";
+                return reply;
             case INVALID:
                 return "Cleo: Invalid command!";
             default:
@@ -109,18 +110,22 @@ public class Cleo {
      * @param input A string containing the description of the todo task to be added.
      * @throws CleoException if the input description is empty.
      */
-    private void addTodoTask(String input) throws CleoException {
+    private String addTodoTask(String input) throws CleoException {
+        String tasksString = "Cleo: Added todo task(s)!";
         String[] todos = input.split(";");
         try {
             for (String todo : todos) {
                 if (todo.isEmpty()) {
                     throw new CleoException("Oops! The description of a todo cannot be empty.");
                 }
-                tasks.addTask(new ToDos(todo));
+                ToDos task = new ToDos(todo);
+                tasks.addTask(task);
+                tasksString += "\n" + task.toString() ;
             }
         } catch (CleoException e) {
             throw new CleoException("Please enter a todo description!");
         }
+        return tasksString;
     }
 
     /**
@@ -129,16 +134,20 @@ public class Cleo {
      * @param input A string containing the description and deadline of the task, separated by '/by'.
      * @throws CleoException If the deadline description or date is empty, or if the deadline is in the past.
      */
-    private void addDeadlineTask(String input) throws CleoException {
+    private String addDeadlineTask(String input) throws CleoException {
+        String tasksString = "Cleo: Added deadline task(s)!";
         try {
             String[] parts = input.split("/by", 2);
             if (parts.length < 2 || parts[1].trim().isEmpty()) {
                 throw new CleoException("Oops! The deadline description or date cannot be empty!");
             }
-            tasks.addTask(new Deadline(parts[0].trim(), parts[1].trim()));
+            Deadline task = new Deadline(parts[0].trim(), parts[1].trim());
+            tasks.addTask(task);
+            tasksString += "\n" + task.toString() ;
         } catch (IllegalArgumentException e) {
             throw new CleoException(e.getMessage());
         }
+        return tasksString;
     }
     /**
      * Adds an event task to the task list.
@@ -148,7 +157,8 @@ public class Cleo {
      * @throws CleoException If the event description, start time, or end time is empty,
      *          or if the start time is after the end time.
      */
-    private void addEventTask(String input) throws CleoException {
+    private String addEventTask(String input) throws CleoException {
+        String tasksString = "Cleo: Added deadline task(s)!";
         try {
             String[] parts = input.split("/from", 2);
 
@@ -159,10 +169,14 @@ public class Cleo {
             if (time.length < 2 || time[0].trim().isEmpty() || time[1].trim().isEmpty()) {
                 throw new CleoException("Oops! Please specify both start and end times for the event!");
             }
-            tasks.addTask(new Events(parts[0].trim(), time[0].trim(), time[1].trim()));
+            Events task = new Events(parts[0].trim(), time[0].trim(), time[1].trim());
+            tasks.addTask(task);
+            tasksString += "\n" + task.toString() ;
+
         } catch (IllegalArgumentException e) {
             throw new CleoException(e.getMessage());
         }
+        return tasksString;
     }
 
     /**
