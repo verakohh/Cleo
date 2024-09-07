@@ -1,6 +1,10 @@
 package cleo;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 import cleo.task.Deadline;
 import cleo.task.Events;
@@ -39,6 +43,7 @@ public class Cleo {
     }
     public String getResponse(String input) {
         Parser.CommandType command = Parser.parseCommand(input);
+        int taskNumber = 0;
         try {
             switch (command) {
             case BYE:
@@ -50,7 +55,7 @@ public class Cleo {
             case FIND:
                 return tasks.findTask(input.substring(4).trim());
             case MARK:
-                int taskNumber = Parser.parseTaskNumber(input.substring(5), tasks.size());
+                taskNumber = Parser.parseTaskNumber(input.substring(5), tasks.size());
                 tasks.getTask(taskNumber).setDone();
                 storage.saveTasks(tasks);
                 return "Cleo: Task marked as done!";
@@ -60,14 +65,26 @@ public class Cleo {
                 storage.saveTasks(tasks);
                 return "Cleo: Task unmarked!";
             case DELETE:
-                taskNumber = Parser.parseTaskNumber(input.substring(7), tasks.size());
-                tasks.removeTask(taskNumber);
+                String[] taskNumbers = input.substring(7).trim().split("\\s");
+                List<Integer> validTaskNumbers = new ArrayList<>();
+                for (String taskIndex : taskNumbers) {
+                    try {
+                        Integer validTaskNumber = Parser.parseTaskNumber(taskIndex, tasks.size());
+                        validTaskNumbers.add(validTaskNumber);
+                    } catch (CleoException e) {
+                        return "Cleo: " + e.getMessage();
+                    }
+                }
+                validTaskNumbers.sort(Collections.reverseOrder());
+                for (int taskIndex : validTaskNumbers) {
+                    tasks.removeTask(taskIndex);
+                }
                 storage.saveTasks(tasks);
-                return "Cleo: Task deleted!";
+                return "Cleo: Task(s) deleted!";
             case TODO:
                 addTodoTask(input.substring(4).trim());
                 storage.saveTasks(tasks);
-                return "Cleo: Added TODO task!";
+                return "Cleo: Added TODO task(s)!";
             case DEADLINE:
                 addDeadlineTask(input.substring(8).trim());
                 storage.saveTasks(tasks);
@@ -93,11 +110,14 @@ public class Cleo {
      * @throws CleoException if the input description is empty.
      */
     private void addTodoTask(String input) throws CleoException {
+        String[] todos = input.split(";");
         try {
-            if (input.isEmpty()) {
-                throw new CleoException("Oops! The description of a todo cannot be empty.");
+            for (String todo : todos) {
+                if (todo.isEmpty()) {
+                    throw new CleoException("Oops! The description of a todo cannot be empty.");
+                }
+                tasks.addTask(new ToDos(todo));
             }
-            tasks.addTask(new ToDos(input));
         } catch (CleoException e) {
             throw new CleoException("Please enter a todo description!");
         }

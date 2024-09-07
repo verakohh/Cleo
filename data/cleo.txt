@@ -1,6 +1,0 @@
-T | 0 | Finish homework
-D | 0 | Finish project | 2024-12-10 10:00
-D | 0 | Finish project | 2024-12-10 08:00
-E | 0 | Conference | 2024-12-15 18:00 | 2024-12-15 18:00
-E | 0 | New Year Celebration | 2025-01-01 01:00 | 2025-01-01 01:00
-E | 0 | New Year Celebration | 2025-01-01 01:00 | 2025-01-01 01:00
