@@ -1,11 +1,9 @@
 package cleo;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 import cleo.task.Deadline;
 import cleo.task.Events;
-import cleo.task.Task;
 import cleo.task.TaskList;
 import cleo.task.ToDos;
 
@@ -38,85 +36,53 @@ public class Cleo {
      */
     public void run() {
         ui.displayWelcomeMessage();
-        try (Scanner scanner = new Scanner(System.in)) {
-            while (true) {
-                System.out.print("You: ");
-                String userInput = scanner.nextLine();
-                Parser.CommandType command = Parser.parseCommand(userInput);
-                ui.showLineSeparator();
-                try {
-                    switch (command) {
-                    case BYE -> {
-                        System.out.println("Cleo: Goodbye, hope to see you again soon! :)");
-                        return;
-                    }
-                    case HI -> System.out.println("Cleo: Hi there! How can I help you today?:)");
-                    case LIST -> tasks.listTasks();
-                    case FIND -> findTask(userInput.substring(4).trim());
-                    case MARK -> {
-                        int taskNumber = Parser.parseTaskNumber(userInput.substring(5), tasks.size());
-                        tasks.getTask(taskNumber).setDone();
-                        storage.saveTasks(tasks); // Save tasks to file
-                    }
-                    case UNMARK -> {
-                        int taskNumber = Parser.parseTaskNumber(userInput.substring(7), tasks.size());
-                        tasks.getTask(taskNumber).setUndone();
-                        storage.saveTasks(tasks); // Save tasks to file
-                    }
-                    case DELETE -> {
-                        int taskNumber = Parser.parseTaskNumber(userInput.substring(7), tasks.size());
-                        tasks.removeTask(taskNumber);
-                        storage.saveTasks(tasks); // Save tasks to file
-                    }
-                    case TODO -> {
-                        addTodoTask(userInput.substring(4).trim());
-                        storage.saveTasks(tasks); // Save tasks to file
-                    }
-                    case DEADLINE -> {
-                        addDeadlineTask(userInput.substring(8).trim());
-                        storage.saveTasks(tasks); // Save tasks to file
-                    }
-                    case EVENT -> {
-                        addEventTask(userInput.substring(5).trim());
-                        storage.saveTasks(tasks); // Save tasks to file
-                    }
-                    case INVALID -> System.out.println("Cleo: Invalid command!");
-                    default -> System.out.println("Cleo: Unrecognised command!");
-                    }
-                } catch (CleoException e) {
-                    System.out.println("Cleo: " + e.getMessage());
-                }
-            }
-        }
     }
-    /**
-     * Searches for tasks in the task list based on the provided keyword.
-     *
-     * @param input the keyword to search for in the task descriptions.
-     * @throws CleoException if the input is empty or no matching tasks are found.
-     */
-    private void findTask(String input) throws CleoException {
+    public String getResponse(String input) {
+        Parser.CommandType command = Parser.parseCommand(input);
         try {
-            int count = 0;
-            if (input.isEmpty()) {
-                throw new CleoException("Enter the keyword you want to search for.");
-            }
-            StringBuilder result = new StringBuilder();
-            for (int i = 0; i < tasks.size(); i++) {
-                Task task = tasks.getTask(i);
-                if (task.getDescription().contains(input)) {
-                    result.append((count + 1) + "." + task + "\n");
-                    count++;
-                }
-            }
-            if (count == 0) {
-                throw new CleoException("No matching tasks found in list!");
-            } else {
-                System.out.println("Cleo: Here are the matching task(s) in your list:");
-                System.out.println(result.toString());
+            switch (command) {
+            case BYE:
+                return "Cleo: Goodbye, hope to see you again soon! :)";
+            case HI:
+                return "Cleo: Hi there! How can I help you today?:)";
+            case LIST:
+                return tasks.listTasks();
+            case FIND:
+                return tasks.findTask(input.substring(4).trim());
+            case MARK:
+                int taskNumber = Parser.parseTaskNumber(input.substring(5), tasks.size());
+                tasks.getTask(taskNumber).setDone();
+                storage.saveTasks(tasks);
+                return "Cleo: Task marked as done!";
+            case UNMARK:
+                taskNumber = Parser.parseTaskNumber(input.substring(7), tasks.size());
+                tasks.getTask(taskNumber).setUndone();
+                storage.saveTasks(tasks);
+                return "Cleo: Task unmarked!";
+            case DELETE:
+                taskNumber = Parser.parseTaskNumber(input.substring(7), tasks.size());
+                tasks.removeTask(taskNumber);
+                storage.saveTasks(tasks);
+                return "Cleo: Task deleted!";
+            case TODO:
+                addTodoTask(input.substring(4).trim());
+                storage.saveTasks(tasks);
+                return "Cleo: Added TODO task!";
+            case DEADLINE:
+                addDeadlineTask(input.substring(8).trim());
+                storage.saveTasks(tasks);
+                return "Cleo: Added deadline task!";
+            case EVENT:
+                addEventTask(input.substring(5).trim());
+                storage.saveTasks(tasks);
+                return "Cleo: Added event task!";
+            case INVALID:
+                return "Cleo: Invalid command!";
+            default:
+                return "Cleo: Unrecognized command!";
             }
         } catch (CleoException e) {
-            System.out.println(e.getMessage());
+            return "Cleo: " + e.getMessage();
         }
     }
 

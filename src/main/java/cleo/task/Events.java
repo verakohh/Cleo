@@ -53,7 +53,22 @@ public class Events extends Task {
     public String getTo() {
         return this.to.format(printformatter);
     }
-
+    /**
+     * Returns the start time of the event.
+     *
+     * @return The end time of the event in yyyy-MM-dd HH:mm format.
+     */
+    public String storeGetFrom() {
+        return this.to.format(formatter);
+    }
+    /**
+     * Returns the end time of the event.
+     *
+     * @return The end time of the event in yyyy-MM-dd HH:mmformat.
+     */
+    public String storeGetTo() {
+        return this.to.format(formatter);
+    }
     /**
      * Returns a string representation of the Events task.
      *
