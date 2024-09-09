@@ -7,7 +7,6 @@ import java.util.List;
 
 import cleo.task.Deadline;
 import cleo.task.Events;
-import cleo.task.Task;
 import cleo.task.TaskList;
 import cleo.task.ToDos;
 
@@ -39,8 +38,9 @@ public class Cleo {
      * Runs the main loop of the Cleo application, taking user input and executing corresponding commands.
      *
      */
-    public void run() {
-        ui.displayWelcomeMessage();
+    public String run() {
+        String greeting = ui.displayWelcomeMessage();
+        return greeting;
     }
     public String getResponse(String input) {
         Parser.CommandType command = Parser.parseCommand(input);
@@ -51,6 +51,8 @@ public class Cleo {
                 return "Cleo: Goodbye, hope to see you again soon! :)";
             case HI:
                 return "Cleo: Hi there! How can I help you today?:)";
+            case COMMANDS:
+                return displayCommandsList();
             case LIST:
                 return tasks.listTasks();
             case FIND:
@@ -103,6 +105,23 @@ public class Cleo {
             return "Cleo: " + e.getMessage();
         }
     }
+    private String displayCommandsList() {
+        return """
+        Here are the available commands:
+        1. todo [task description] - Adds a todo task (e.g. "todo call mom").
+           * You can add multiple todos at once by separating them with a semicolon (e.g. "todo call;bathe;study").
+        2. deadline [task description] /by [date] - Adds a deadline task (e.g. "deadline submit work /by 2024-09-15").
+        3. event [task description] /from [start time] /to [end time] - Adds an event task
+           (e.g. "event team meeting /from 2pm /to 3pm").
+        4. list - Lists all the tasks you've added.
+        5. mark [task number] - Marks a task as done (e.g. "mark 2").
+        6. unmark [task number] - Marks a task as not done (e.g. "unmark 2").
+        7. delete [task numbers] - Deletes tasks by their numbers (e.g. "delete 1 3 4").
+           * You can delete multiple tasks at once by separating task numbers with spaces.
+        8. find [keyword] - Finds tasks by a keyword (e.g. "find book", "find [E]").
+        9. bye - Exits the application.
+            """;
+    }
 
     /**
      * Adds a new todo task to the task list.
@@ -120,7 +139,7 @@ public class Cleo {
                 }
                 ToDos task = new ToDos(todo);
                 tasks.addTask(task);
-                tasksString += "\n" + task.toString() ;
+                tasksString += "\n" + task.toString();
             }
         } catch (CleoException e) {
             throw new CleoException("Please enter a todo description!");
@@ -143,7 +162,7 @@ public class Cleo {
             }
             Deadline task = new Deadline(parts[0].trim(), parts[1].trim());
             tasks.addTask(task);
-            tasksString += "\n" + task.toString() ;
+            tasksString += "\n" + task.toString();
         } catch (IllegalArgumentException e) {
             throw new CleoException(e.getMessage());
         }
@@ -171,7 +190,7 @@ public class Cleo {
             }
             Events task = new Events(parts[0].trim(), time[0].trim(), time[1].trim());
             tasks.addTask(task);
-            tasksString += "\n" + task.toString() ;
+            tasksString += "\n" + task.toString();
 
         } catch (IllegalArgumentException e) {
             throw new CleoException(e.getMessage());

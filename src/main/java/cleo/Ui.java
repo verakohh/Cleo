@@ -9,15 +9,15 @@ public class Ui {
      * Displays the welcome message when the Cleo chatbot is started.
      * Includes a simple ASCII art of a cute character to greet the user.
      */
-    public void displayWelcomeMessage() {
+    public String displayWelcomeMessage() {
         String logo = """
                   /)/) \s
                  ( •.•)
                  (  - )♡
                 """;
-        System.out.println("Good day! I’m Cleo, your personal assistant,\n"
-                + "What’s on the agenda today?\n" + logo);
-        showLineSeparator();
+        String greeting = "Good day! I’m Cleo, your personal assistant,\n"
+                + "What’s on the agenda today?\n";
+        return (greeting + logo);
     }
 
     public void showLoadingError() {

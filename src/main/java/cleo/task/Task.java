@@ -41,7 +41,7 @@ public abstract class Task {
      *
      * @return the value of the `isDone` flag.
      */
-    public Boolean isDoneString() {
+    public boolean isDoneString() {
         return this.isDone;
     }
 

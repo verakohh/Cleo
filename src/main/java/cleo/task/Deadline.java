@@ -38,7 +38,7 @@ public class Deadline extends Task {
      * @return The deadline date and time in MMM dd yyyy hh:mm a format.
      */
     public String getBy() {
-        return this.by.format(printformatter);
+        return by.format(printformatter);
     }
     /**
      * Returns the end time of the event.
@@ -46,7 +46,7 @@ public class Deadline extends Task {
      * @return The end time of the event in yyyy-MM-dd HH:mm format.
      */
     public String storeGetBy() {
-        return this.by.format(formatter);
+        return by.format(formatter);
     }
 
     /**

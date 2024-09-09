@@ -25,12 +25,23 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image cleoImage = new Image(this.getClass().getResourceAsStream("/images/cleo.png"));
 
+    /**
+     * Sets greetings for Cleo and dimensions of scroll pane.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        String greeting = "Good day! I’m Cleo, your personal assistant,"
+                        + " what’s on the agenda today?\nType 'commands' for the list of commands!";
+
+        dialogContainer.getChildren().add(
+                DialogBox.getCleoDialog(greeting, cleoImage)
+        );
     }
 
-    /** Injects the Cleo instance */
+    /**
+     * Injects the Cleo instance.
+     */
     public void setCleo(Cleo c) {
         cleo = c;
     }

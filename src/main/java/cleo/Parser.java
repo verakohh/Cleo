@@ -18,6 +18,7 @@ public class Parser {
         EVENT,
         BYE,
         HI,
+        COMMANDS,
         INVALID;
     }
 
@@ -57,6 +58,9 @@ public class Parser {
         }
         if (userInput.equals("hi") || userInput.equals("hello")) {
             return CommandType.HI;
+        }
+        if (userInput.equals("commands")) {
+            return CommandType.COMMANDS;
         }
         return CommandType.INVALID;
     }
