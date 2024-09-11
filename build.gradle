@@ -46,5 +46,7 @@ shadowJar {
     archiveFileName = "Cleo.jar"
 }
 
-
+run {
+    enableAssertions = true
+}
 

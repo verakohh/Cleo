@@ -10,7 +10,7 @@ import java.time.format.DateTimeParseException;
 public class Deadline extends Task {
     protected LocalDateTime by;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    private DateTimeFormatter printformatter = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
+    private DateTimeFormatter printFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
 
     /**
      * Creates a new Deadline task.
@@ -38,7 +38,7 @@ public class Deadline extends Task {
      * @return The deadline date and time in MMM dd yyyy hh:mm a format.
      */
     public String getBy() {
-        return by.format(printformatter);
+        return by.format(printFormatter);
     }
     /**
      * Returns the end time of the event.

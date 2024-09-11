@@ -15,7 +15,9 @@ public abstract class Task {
      */
     public Task(String description) {
         this.description = description;
+        assert description != null : "Description should not be empty!";
         this.isDone = false;
+        assert !isDone : "Task should not be marked done yet.";
     }
 
     /**
@@ -49,19 +51,19 @@ public abstract class Task {
      * Marks the task as done.
      */
     public void setDone() {
-        this.isDone = true;
+        isDone = true;
     }
     /**
      * Marks the tasks as not done.
      */
     public void setUndone() {
-        this.isDone = false;
+        isDone = false;
     }
 
     /**
      * Returns a string representation of the task.
      *
-     * @return a string representation of the taskn in the format "[is_done] description".
+     * @return a string representation of the task in the format "[is_done] description".
      */
     @Override
     public String toString() {
