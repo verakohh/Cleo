@@ -11,7 +11,7 @@ public class Events extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    private DateTimeFormatter printformatter = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
+    private DateTimeFormatter printFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
 
     /**
      * Creates a new Events task.
@@ -42,7 +42,7 @@ public class Events extends Task {
      * @return The start time of the event in MMM dd yyyy hh:mm a format.
      */
     public String getFrom() {
-        return from.format(printformatter);
+        return from.format(printFormatter);
     }
 
     /**
@@ -51,7 +51,7 @@ public class Events extends Task {
      * @return The end time of the event in MMM dd yyyy hh:mm a format.
      */
     public String getTo() {
-        return to.format(printformatter);
+        return to.format(printFormatter);
     }
     /**
      * Returns the start time of the event.
@@ -64,7 +64,7 @@ public class Events extends Task {
     /**
      * Returns the end time of the event.
      *
-     * @return The end time of the event in yyyy-MM-dd HH:mmformat.
+     * @return The end time of the event in yyyy-MM-dd HH:mm format.
      */
     public String storeGetTo() {
         return to.format(formatter);

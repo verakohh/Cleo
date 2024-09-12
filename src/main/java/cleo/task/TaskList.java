@@ -105,6 +105,7 @@ public class TaskList {
             for (int i = 0; i < tasks.size(); i++) {
                 result.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
             }
+            assert !tasks.isEmpty() : "Task should not be empty";
             return result.toString();
         }
     }
@@ -133,6 +134,8 @@ public class TaskList {
         if (count == 0) {
             throw new CleoException("No matching tasks found in list!");
         } else {
+            assert count != 0 || !result.isEmpty() : "Find feature does not work."
+                    + "Count or tasks found should not be zero.";
             return "Cleo: Here are the matching task(s) in your list:\n" + result.toString();
         }
     }

@@ -40,8 +40,10 @@ public class Cleo {
      * @param input The user input string.
      * @return The response from Cleo based on the command given.
      */
+
     public String getResponse(String input) {
         Parser.CommandType command = Parser.parseCommand(input.toLowerCase());
+        assert command != null : "Command cannot be empty!";
         int taskNumber = 0;
         try {
             switch (command) {
@@ -70,14 +72,17 @@ public class Cleo {
                 return reply;
             case TODO:
                 reply = addTodoTask(input.substring(4).trim());
+                assert reply != null : "Reply should not be null";
                 storage.saveTasks(tasks);
                 return reply;
             case DEADLINE:
                 reply = addDeadlineTask(input.substring(8).trim());
+                assert reply != null : "Reply should not be null";
                 storage.saveTasks(tasks);
                 return reply;
             case EVENT:
                 reply = addEventTask(input.substring(5).trim());
+                assert reply != null : "Reply should not be null";
                 storage.saveTasks(tasks);
                 return reply;
             default:
@@ -198,12 +203,12 @@ public class Cleo {
      * @throws CleoException If the description or start/end times are missing.
      */
     private String addEventTask(String input) throws CleoException {
-        String tasksString = "Cleo: Added deadline task(s)!";
+        String tasksString = "Cleo: Added event task(s)!";
         try {
             String[] parts = input.split("/from", 2);
 
             if (parts.length < 2 || parts[0].trim().isEmpty()) {
-                throw new CleoException("Oops! Please specify both start and end times for the event!");
+                throw new CleoException("Oops! The event description or date cannot be empty!");
             }
             String[] time = parts[1].split("/to", 2);
             if (time.length < 2 || time[0].trim().isEmpty() || time[1].trim().isEmpty()) {
