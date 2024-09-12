@@ -1,17 +1,17 @@
 package cleo;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import cleo.task.Deadline;
 import cleo.task.Events;
+import cleo.task.Task;
 import cleo.task.TaskList;
 import cleo.task.ToDos;
+import javafx.application.Platform;
 
 /**
  * Represents the Cleo chatbot and its tasks.
+ * Provides functionality to add, mark, unmark, delete, and find tasks based on user input.
  */
 public class Cleo {
     private final Storage storage;
@@ -35,55 +35,39 @@ public class Cleo {
         }
     }
     /**
-     * Runs the main loop of the Cleo application, taking user input and executing corresponding commands.
+     * Processes the user input and returns an appropriate response.
      *
+     * @param input The user input string.
+     * @return The response from Cleo based on the command given.
      */
-    public String run() {
-        String greeting = ui.displayWelcomeMessage();
-        return greeting;
-    }
     public String getResponse(String input) {
-        Parser.CommandType command = Parser.parseCommand(input);
+        Parser.CommandType command = Parser.parseCommand(input.toLowerCase());
         int taskNumber = 0;
         try {
             switch (command) {
             case BYE:
-                return "Cleo: Goodbye, hope to see you again soon! :)";
+                Platform.exit();
+                return Ui.getByeMessage();
             case HI:
-                return "Cleo: Hi there! How can I help you today?:)";
+                return Ui.getWelcomeMessage();
             case COMMANDS:
-                return displayCommandsList();
+                return Ui.displayCommandsList();
             case LIST:
                 return tasks.listTasks();
             case FIND:
                 return tasks.findTask(input.substring(4).trim());
             case MARK:
-                taskNumber = Parser.parseTaskNumber(input.substring(5), tasks.size());
-                tasks.getTask(taskNumber).setDone();
+                reply = markTask(input.substring(5).trim());
                 storage.saveTasks(tasks);
-                return "Cleo: Task marked as done!";
+                return reply;
             case UNMARK:
-                taskNumber = Parser.parseTaskNumber(input.substring(7), tasks.size());
-                tasks.getTask(taskNumber).setUndone();
+                reply = unmarkTask(input.substring(7).trim());
                 storage.saveTasks(tasks);
-                return "Cleo: Task unmarked!";
+                return reply;
             case DELETE:
-                String[] taskNumbers = input.substring(7).trim().split("\\s");
-                List<Integer> validTaskNumbers = new ArrayList<>();
-                for (String taskIndex : taskNumbers) {
-                    try {
-                        Integer validTaskNumber = Parser.parseTaskNumber(taskIndex, tasks.size());
-                        validTaskNumbers.add(validTaskNumber);
-                    } catch (CleoException e) {
-                        return "Cleo: " + e.getMessage();
-                    }
-                }
-                validTaskNumbers.sort(Collections.reverseOrder());
-                for (int taskIndex : validTaskNumbers) {
-                    tasks.removeTask(taskIndex);
-                }
+                reply = deleteTasks(input.substring(7).trim());
                 storage.saveTasks(tasks);
-                return "Cleo: Task(s) deleted!";
+                return reply;
             case TODO:
                 reply = addTodoTask(input.substring(4).trim());
                 storage.saveTasks(tasks);
@@ -96,38 +80,76 @@ public class Cleo {
                 reply = addEventTask(input.substring(5).trim());
                 storage.saveTasks(tasks);
                 return reply;
-            case INVALID:
-                return "Cleo: Invalid command!";
             default:
-                return "Cleo: Unrecognized command!";
+                return Ui.showCommandError();
             }
         } catch (CleoException e) {
             return "Cleo: " + e.getMessage();
         }
     }
-    private String displayCommandsList() {
-        return """
-        Here are the available commands:
-        1. todo [task description] - Adds a todo task (e.g. "todo call mom").
-           * You can add multiple todos at once by separating them with a semicolon (e.g. "todo call;bathe;study").
-        2. deadline [task description] /by [date] - Adds a deadline task (e.g. "deadline submit work /by 2024-09-15").
-        3. event [task description] /from [start time] /to [end time] - Adds an event task
-           (e.g. "event team meeting /from 2pm /to 3pm").
-        4. list - Lists all the tasks you've added.
-        5. mark [task number] - Marks a task as done (e.g. "mark 2").
-        6. unmark [task number] - Marks a task as not done (e.g. "unmark 2").
-        7. delete [task numbers] - Deletes tasks by their numbers (e.g. "delete 1 3 4").
-           * You can delete multiple tasks at once by separating task numbers with spaces.
-        8. find [keyword] - Finds tasks by a keyword (e.g. "find book", "find [E]").
-        9. bye - Exits the application.
-            """;
-    }
 
     /**
-     * Adds a new todo task to the task list.
+     * Marks a task as done based on user input.
      *
-     * @param input A string containing the description of the todo task to be added.
-     * @throws CleoException if the input description is empty.
+     * @param input The user input containing the task number to mark as done.
+     * @return A response string indicating that the task has been marked as done.
+     * @throws CleoException If the task number is invalid.
+     */
+    private String markTask(String input) throws CleoException {
+        try {
+            int taskNumber = Parser.parseTaskNumber(input, tasks.size());
+            Task doneTask = tasks.getTask(taskNumber);
+            doneTask.setDone();
+            reply = Ui.getMarkMessage() + '\n' + doneTask.toString();
+        } catch (CleoException e) {
+            throw new CleoException("Please enter a valid task!");
+        }
+        return reply;
+    }
+    /**
+     * Unmarks a task as not done based on user input.
+     *
+     * @param input The user input containing the task number to unmark.
+     * @return A response string indicating that the task has been unmarked.
+     * @throws CleoException If the task number is invalid.
+     */
+    private String unmarkTask(String input) throws CleoException {
+        try {
+            int taskNumber = Parser.parseTaskNumber(input, tasks.size());
+            Task undoneTask = tasks.getTask(taskNumber);
+            undoneTask.setUndone();
+            reply = Ui.getUnmarkMessage() + '\n' + undoneTask.toString();
+        } catch (CleoException e) {
+            throw new CleoException("Please enter a  valid task!");
+        }
+        return reply;
+    }
+    /**
+     * Deletes one or more tasks based on user input.
+     *
+     * @param input The user input containing the task numbers to delete.
+     * @return A response string indicating the tasks that have been deleted.
+     * @throws CleoException If the task numbers are invalid.
+     */
+    private String deleteTasks(String input) throws CleoException {
+        try {
+            reply = Ui.getDeleteMessage();
+            int[] validTaskNumbers = Parser.parseTasksNumbers(input, tasks.size());
+            for (int taskIndex : validTaskNumbers) {
+                reply += '\n' + (tasks.getTask(taskIndex).toString());
+            }
+            tasks.removeTask(validTaskNumbers);
+        } catch (CleoException e) {
+            throw new CleoException("Please enter a  valid task!");
+        }
+        return reply + "\nTasks removed successfully!";
+    }
+    /**
+     * Adds a new todo task based on user input.
+     *
+     * @param input The description of the todo task to add.
+     * @return A response string confirming that the todo task has been added.
+     * @throws CleoException If the task description is empty.
      */
     private String addTodoTask(String input) throws CleoException {
         String tasksString = "Cleo: Added todo task(s)!";
@@ -146,12 +168,12 @@ public class Cleo {
         }
         return tasksString;
     }
-
     /**
-     * Adds a deadline task to the task list.
+     * Adds a new deadline task based on user input.
      *
-     * @param input A string containing the description and deadline of the task, separated by '/by'.
-     * @throws CleoException If the deadline description or date is empty, or if the deadline is in the past.
+     * @param input The description and deadline of the task, separated by '/by'.
+     * @return A response string confirming that the deadline task has been added.
+     * @throws CleoException If the description or deadline is missing.
      */
     private String addDeadlineTask(String input) throws CleoException {
         String tasksString = "Cleo: Added deadline task(s)!";
@@ -169,12 +191,11 @@ public class Cleo {
         return tasksString;
     }
     /**
-     * Adds an event task to the task list.
+     * Adds a new event task based on user input.
      *
-     * @param input A string containing the description of the event, and start and end times,
-     *          separated by '/from' and '/to'.
-     * @throws CleoException If the event description, start time, or end time is empty,
-     *          or if the start time is after the end time.
+     * @param input The description, start time, and end time of the event, separated by '/from' and '/to'.
+     * @return A response string confirming that the event task has been added.
+     * @throws CleoException If the description or start/end times are missing.
      */
     private String addEventTask(String input) throws CleoException {
         String tasksString = "Cleo: Added deadline task(s)!";
@@ -205,7 +226,7 @@ public class Cleo {
      * @throws CleoException if an error occurs during the execution of the Cleo application.
      */
     public static void main(String[] args) throws CleoException {
-        new Cleo("./data/cleo.txt").run();
+        new Cleo("./data/cleo.txt");
     }
 
 }

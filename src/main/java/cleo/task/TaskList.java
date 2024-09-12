@@ -1,6 +1,10 @@
 package cleo.task;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import cleo.CleoException;
 
@@ -34,13 +38,18 @@ public class TaskList {
     /**
      * Removes a task from the list.
      *
-     * @param taskNumber the index of the task that will be removed.
+     * @param taskNumbers the index of the task that will be removed.
      */
-    public void removeTask(int taskNumber) {
-        Task removedTask = tasks.remove(taskNumber);
-        System.out.println("Cleo: Noted, I've removed this task:");
-        System.out.println("    " + removedTask);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+    public void removeTask(int... taskNumbers) {
+        List<Integer> validTaskNumbers = Arrays.stream(taskNumbers)
+                .boxed()
+                .sorted(Collections.reverseOrder())
+                .collect(Collectors.toList());
+
+        for (int taskIndex : validTaskNumbers) {
+            Task removedTask = tasks.remove(taskIndex);
+        }
+
     }
     /**
      * Returns the task at the specified index.
@@ -110,7 +119,6 @@ public class TaskList {
         if (keyword.isEmpty()) {
             throw new CleoException("Enter the keyword you want to search for.");
         }
-
         StringBuilder result = new StringBuilder();
         int count = 0;
 

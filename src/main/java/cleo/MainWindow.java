@@ -31,11 +31,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        String greeting = "Good day! I’m Cleo, your personal assistant,"
-                        + " what’s on the agenda today?\nType 'commands' for the list of commands!";
-
         dialogContainer.getChildren().add(
-                DialogBox.getCleoDialog(greeting, cleoImage)
+                DialogBox.getCleoDialog(Ui.getWelcomeMessage(), cleoImage)
         );
     }
 
