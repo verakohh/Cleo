@@ -39,11 +39,13 @@ public class Cleo {
      *
      */
     public String run() {
+        assert false : "assert works";
         String greeting = ui.displayWelcomeMessage();
         return greeting;
     }
     public String getResponse(String input) {
         Parser.CommandType command = Parser.parseCommand(input);
+        assert command != null : "Command cannot be empty!";
         int taskNumber = 0;
         try {
             switch (command) {
@@ -86,14 +88,17 @@ public class Cleo {
                 return "Cleo: Task(s) deleted!";
             case TODO:
                 reply = addTodoTask(input.substring(4).trim());
+                assert reply != null : "Reply should not be null";
                 storage.saveTasks(tasks);
                 return reply;
             case DEADLINE:
                 reply = addDeadlineTask(input.substring(8).trim());
+                assert reply != null : "Reply should not be null";
                 storage.saveTasks(tasks);
                 return reply;
             case EVENT:
                 reply = addEventTask(input.substring(5).trim());
+                assert reply != null : "Reply should not be null";
                 storage.saveTasks(tasks);
                 return reply;
             case INVALID:
@@ -119,7 +124,6 @@ public class Cleo {
         7. delete [task numbers] - Deletes tasks by their numbers (e.g. "delete 1 3 4").
            * You can delete multiple tasks at once by separating task numbers with spaces.
         8. find [keyword] - Finds tasks by a keyword (e.g. "find book", "find [E]").
-        9. bye - Exits the application.
             """;
     }
 
@@ -177,12 +181,12 @@ public class Cleo {
      *          or if the start time is after the end time.
      */
     private String addEventTask(String input) throws CleoException {
-        String tasksString = "Cleo: Added deadline task(s)!";
+        String tasksString = "Cleo: Added event task(s)!";
         try {
             String[] parts = input.split("/from", 2);
 
             if (parts.length < 2 || parts[0].trim().isEmpty()) {
-                throw new CleoException("Oops! Please specify both start and end times for the event!");
+                throw new CleoException("Oops! The event description or date cannot be empty!");
             }
             String[] time = parts[1].split("/to", 2);
             if (time.length < 2 || time[0].trim().isEmpty() || time[1].trim().isEmpty()) {
@@ -206,6 +210,7 @@ public class Cleo {
      */
     public static void main(String[] args) throws CleoException {
         new Cleo("./data/cleo.txt").run();
+
     }
 
 }
