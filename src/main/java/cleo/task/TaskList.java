@@ -34,7 +34,6 @@ public class TaskList {
         System.out.println(task);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
-
     /**
      * Removes a task from the list.
      *
@@ -66,6 +65,12 @@ public class TaskList {
     public void sortByPriority() {
         Collections.sort(tasks, new TaskPriorityComparator());
     }
+    /**
+     * Sorts the tasks by their priority level and returns a string representation of the sorted tasks.
+     * The tasks are sorted in ascending order from P0 (highest priority) to P4 (lowest priority).
+     *
+     * @return A string containing the tasks sorted by priority, each with its description and priority level.
+     */
     public String listSortedByPriority() {
         sortByPriority();
         StringBuilder taskList = new StringBuilder("Tasks sorted by priority:\n");
@@ -75,29 +80,6 @@ public class TaskList {
         return taskList.toString();
     }
     /**
-     * Marks the task at the specified index as done.
-     *
-     * @param taskNumber is an integer for the task index.
-     */
-    public void setDone(int taskNumber) {
-        Task task = tasks.get(taskNumber);
-        task.setDone();
-        System.out.println("Cleo: Great job! I've marked this task as done:");
-        System.out.println("    " + task);
-    }
-
-    /**
-     * Marks the task at the specified index as not done.
-     *
-     * @param taskNumber is an integer for the task index.
-     */
-    public void setUndone(int taskNumber) {
-        Task task = tasks.get(taskNumber);
-        task.setUndone();
-        System.out.println("Cleo: Okay! I've unmarked this task as not done yet:");
-        System.out.println("    " + task);
-    }
-    /**
      * Returns the size of the task list.
      *
      * @return the size of the task list as an integer.
@@ -105,7 +87,6 @@ public class TaskList {
     public int size() {
         return tasks.size();
     }
-
     /**
      * Prints all the tasks in the list.
      *

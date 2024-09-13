@@ -13,18 +13,21 @@ public class Ui {
     public static String displayCommandsList() {
         return """
         Here are the available commands:
-        1. todo [task description] - Adds a todo task (e.g. "todo call mom").
+        1. TODO [task description] - Adds a todo task (e.g. "todo call mom #P2").
            * You can add multiple todos at once by separating them with a semicolon (e.g. "todo call;bathe;study").
-        2. deadline [task description] /by [date] - Adds a deadline task (e.g. "deadline submit work /by 2024-09-15").
-        3. event [task description] /from [start time] /to [end time] - Adds an event task
-           (e.g. "event team meeting /from 2pm /to 3pm").
-        4. list - Lists all the tasks you've added.
-        5. mark [task number] - Marks a task as done (e.g. "mark 2").
-        6. unmark [task number] - Marks a task as not done (e.g. "unmark 2").
-        7. delete [task numbers] - Deletes tasks by their numbers (e.g. "delete 1 3 4").
+        2. DEADLINE [task description] /by [date] - Adds a deadline task 
+           (e.g. "deadline submit work /by 2025-01-01 11:00").
+        3. EVENT [task description] /from [start time] /to [end time] - Adds an event task
+           (e.g. "event team meeting /from 2025-01-01 09:00 /to 2025-01-01 11:00 #P2 ").
+        4. LIST - Lists all the tasks you've added.
+        5. MARK [task number] - Marks a task as done (e.g. "mark 2").
+        6. UNMARK [task number] - Marks a task as not done (e.g. "unmark 2").
+        7. DELETE [task numbers] - Deletes tasks by their numbers (e.g. "delete 1 3 4").
            * You can delete multiple tasks at once by separating task numbers with spaces.
-        8. find [keyword] - Finds tasks by a keyword (e.g. "find book", "find [E]").
-        9. bye - Exits the application.
+        8. FIND [keyword] - Finds tasks by a keyword (e.g. "find book", "find [E]").
+        9. PRIORITY [task number] [#priority level] - Changes priority level of the task. choose from P[0-4] 
+           (e.g. priority 2 #P0)
+        10. BYE - Exits the application.
             """;
     }
 
