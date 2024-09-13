@@ -1,5 +1,7 @@
 package cleo;
 
+import javafx.util.Pair;
+
 /**
  * Handles parsing of user input and provides command types and task number extraction
  * for the Cleo chatbot.
@@ -20,6 +22,7 @@ public class Parser {
         BYE,
         HI,
         COMMANDS,
+        PRIORITY,
         INVALID;
     }
 
@@ -62,6 +65,9 @@ public class Parser {
         }
         if (userInput.equals("commands")) {
             return CommandType.COMMANDS;
+        }
+        if (userInput.startsWith("priority")) {
+            return CommandType.PRIORITY;
         }
         return CommandType.INVALID;
     }
@@ -116,5 +122,88 @@ public class Parser {
             throw new CleoException("Please provide a valid task number.");
         }
     }
+    /**
+     * Parses the input string for a todo task.
+     *
+     * @param input The raw input string for a todo.
+     * @return A string representing the todo description.
+     * @throws CleoException If the description is empty.
+     */
+    public static Pair<String, String> parseTodoInput(String input) throws CleoException {
+        input = input.trim();
+        String[] parts = input.split("#");
+        String description = parts[0].trim();
+
+        if (description.isEmpty()) {
+            throw new CleoException("Oops! The description of a todo cannot be empty!");
+        }
+
+        String priority = (parts.length > 1) ? parsePriority(parts[1].trim()) : null;
+        return new Pair<>(description, priority);
+    }
+
+
+    /**
+     * Parses the input string for a deadline task.
+     *
+     * @param input The raw input string for a deadline, which should contain a '/by' separator.
+     * @return An array of strings containing the description and deadline.
+     * @throws CleoException If the input is invalid or missing required parts.
+     */
+    public static String[] parseDeadlineInput(String input) throws CleoException {
+        String[] parts = input.split("/by", 2);
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new CleoException("Oops! The deadline description or date cannot be empty!");
+        }
+
+        String description = parts[0].trim();
+        String deadline = parts[1].split("#")[0].trim(); // Split to remove the priority from deadline if present
+        String priority = (parts[1].contains("#")) ? parsePriority(parts[1].split("#")[1].trim()) : null;
+
+        return new String[]{description, deadline, priority};
+    }
+
+
+    /**
+     * Parses the input string for an event task.
+     *
+     * @param input The raw input string for an event, which should contain '/from' and '/to' separators.
+     * @return An array of strings containing the description, start time, and end time.
+     * @throws CleoException If the input is invalid or missing required parts.
+     */
+    public static String[] parseEventInput(String input) throws CleoException {
+        String[] parts = input.split("/from", 2);
+        if (parts.length < 2 || parts[0].trim().isEmpty()) {
+            throw new CleoException("Oops! The event description or date cannot be empty!");
+        }
+
+        String[] time = parts[1].split("/to", 2);
+        if (time.length < 2 || time[0].trim().isEmpty() || time[1].trim().isEmpty()) {
+            throw new CleoException("Oops! Please specify both start and end times for the event!");
+        }
+
+        String description = parts[0].trim();
+        String startTime = time[0].trim();
+        String endTime = time[1].split("#")[0].trim(); // Split to remove the priority from time if present
+        String priority = (time[1].contains("#")) ? parsePriority(time[1].split("#")[1].trim()) : null;
+
+        return new String[]{description, startTime, endTime, priority};
+    }
+    /**
+     * Parses the input string to extract the priority level for a task.
+     * Ensures that the priority level is valid (between P0 and P4).
+     *
+     * @param input The user input containing the priority level (e.g., "P0", "P1", etc.).
+     * @return A valid priority level string (e.g., "P0", "P1").
+     * @throws CleoException If the priority level is not between P0 and P4 or the input is invalid.
+     */
+    public static String parsePriority(String input) throws CleoException {
+        input = input.trim();
+        if (!input.matches("P[0-4]")) {
+            throw new CleoException("Invalid priority level! Priority must be between P0 and P4.");
+        }
+        return input;
+    }
+
 
 }

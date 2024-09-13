@@ -7,17 +7,20 @@ package cleo.task;
 public abstract class Task {
     protected String description;
     protected boolean isDone;
+    protected String priorityLevel;
     /**
      *  Constructs a new Task with the given description.
      * The task is initially marked as not done.
      *
      * @param description The description of the task.
      */
-    public Task(String description) {
+    public Task(String description, String priorityLevel) {
         this.description = description;
         assert description != null : "Description should not be empty!";
         this.isDone = false;
         assert !isDone : "Task should not be marked done yet.";
+        this.priorityLevel = priorityLevel;
+        assert priorityLevel != null : "Priority should not be empty";
     }
 
     /**
@@ -59,6 +62,22 @@ public abstract class Task {
     public void setUndone() {
         isDone = false;
     }
+    /**
+     * Returns the priority level of the task as a string.
+     *
+     * @return the priority level of the task.
+     */
+    public String getPriorityLevel() {
+        return this.priorityLevel;
+    }
+    /**
+     * Sets the priority level of the task.
+     *
+     * @param priorityLevel The new priority level.
+     */
+    public void setPriorityLevel(String priorityLevel) {
+        this.priorityLevel = priorityLevel;
+    }
 
     /**
      * Returns a string representation of the task.
@@ -67,6 +86,6 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return getStatusIcon() + description;
+        return getStatusIcon() + description + " (" + priorityLevel + ")";
     }
 }

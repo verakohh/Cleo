@@ -82,16 +82,17 @@ public class Storage {
             for (int i = 0; i < tasks.size(); i++) {
                 Task task = tasks.getTask(i);
                 if (task instanceof ToDos) {
-                    fw.write("T | " + (task.isDoneString() ? "1" : "0") + " | " + task.getDescription() + "\n");
+                    fw.write("T | " + (task.isDoneString() ? "1" : "0") + " | " + task.getDescription() + " | "
+                            + task.getPriorityLevel() + "\n");
                 } else if (task instanceof Deadline) {
                     Deadline deadline = (Deadline) task;
-                    fw.write("D | " + (deadline.isDoneString() ? "1" : "0")
-                            + " | " + deadline.getDescription() + " | " + deadline.storeGetBy() + "\n");
+                    fw.write("D | " + (deadline.isDoneString() ? "1" : "0") + " | " + deadline.getDescription()
+                             + " | " + deadline.storeGetBy() + " | " + deadline.getPriorityLevel() + "\n");
                 } else if (task instanceof Events) {
                     Events event = (Events) task;
-                    fw.write("E | " + (event.isDoneString() ? "1" : "0")
-                            + " | " + event.getDescription() + " | " + event.storeGetFrom() + " | " + event.storeGetTo()
-                            + "\n");
+                    fw.write("E | " + (event.isDoneString() ? "1" : "0") + " | " + event.getDescription()
+                            + " | " + event.storeGetFrom() + " | " + event.storeGetTo() + " | "
+                            + event.getPriorityLevel() + "\n");
                 }
             }
             fw.close();
@@ -112,14 +113,15 @@ public class Storage {
         String type = parts[0];
         String done = parts[1];
         String desc = parts[2];
+        String priority = parts[parts.length - 1];
         Task task = null;
 
         if (type.equals("T")) {
-            task = new ToDos(desc);
+            task = new ToDos(desc, priority);
         } else if (type.equals("D")) {
-            task = new Deadline(desc, parts[3]);
+            task = new Deadline(desc, parts[3], priority);
         } else if (type.equals("E")) {
-            task = new Events(desc, parts[3], parts[4]);
+            task = new Events(desc, parts[3], parts[4], priority);
         }
         if (done.equals("1")) {
             task.setDone();

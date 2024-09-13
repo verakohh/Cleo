@@ -17,7 +17,7 @@ public class TaskListTest {
 
     @Test
     public void testAddTask() {
-        ToDos todo = new ToDos("Finish homework");
+        ToDos todo = new ToDos("Finish homework", "P3");
         taskList.addTask(todo);
         assertEquals(1, taskList.size());
         assertEquals(todo, taskList.getTask(0));
@@ -25,7 +25,7 @@ public class TaskListTest {
 
     @Test
     public void testRemoveTask() {
-        ToDos todo = new ToDos("Finish homework");
+        ToDos todo = new ToDos("Finish homework", "P3");
         taskList.addTask(todo);
         assertEquals(1, taskList.size());
 
@@ -35,8 +35,8 @@ public class TaskListTest {
 
     @Test
     public void testGetTask() {
-        ToDos todo1 = new ToDos("Finish homework");
-        ToDos todo2 = new ToDos("Read book");
+        ToDos todo1 = new ToDos("Finish homework", "P3");
+        ToDos todo2 = new ToDos("Read book", "P3");
         taskList.addTask(todo1);
         taskList.addTask(todo2);
 
@@ -48,18 +48,18 @@ public class TaskListTest {
     public void testSize() {
         assertEquals(0, taskList.size());
 
-        taskList.addTask(new ToDos("Finish homework"));
+        taskList.addTask(new ToDos("Finish homework", "P3"));
         assertEquals(1, taskList.size());
 
-        taskList.addTask(new ToDos("Read book"));
+        taskList.addTask(new ToDos("Read book", "P3"));
         assertEquals(2, taskList.size());
     }
 
     @Test
     public void testListTasks() {
         // Add tasks to the list
-        taskList.addTask(new ToDos("Finish homework"));
-        taskList.addTask(new ToDos("Read book"));
+        taskList.addTask(new ToDos("Finish homework", "P3"));
+        taskList.addTask(new ToDos("Read book", "P3"));
 
         // Capture the console output (this part is tricky, depending on the framework and the setup)
         // For simplicity, you might need to just check that the size matches and assume listTasks works correctly.
@@ -68,7 +68,7 @@ public class TaskListTest {
 
     @Test
     public void testRemoveTaskOutOfBounds() {
-        ToDos todo = new ToDos("Finish homework");
+        ToDos todo = new ToDos("Finish homework", "P3");
         taskList.addTask(todo);
 
         // Trying to remove a task that doesn't exist should throw an IndexOutOfBoundsException

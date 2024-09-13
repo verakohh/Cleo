@@ -81,6 +81,14 @@ public class Ui {
         return "Cleo: Noted, I've removed this task:";
     }
     /**
+     * Returns a message confirming that a task has been deleted.
+     *
+     * @return A confirmation message after deleting a task.
+     */
+    public static String getUpdatePriorityMessage() {
+        return "Cleo: Noted, I've updated the priority for this task:";
+    }
+    /**
      * Displays an error message when there is an issue loading the command.
      */
     public static String showCommandError() {

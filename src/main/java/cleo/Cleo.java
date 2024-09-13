@@ -8,6 +8,7 @@ import cleo.task.Task;
 import cleo.task.TaskList;
 import cleo.task.ToDos;
 import javafx.application.Platform;
+import javafx.util.Pair;
 
 /**
  * Represents the Cleo chatbot and its tasks.
@@ -55,6 +56,7 @@ public class Cleo {
             case COMMANDS:
                 return Ui.displayCommandsList();
             case LIST:
+                tasks.listSortedByPriority();
                 return tasks.listTasks();
             case FIND:
                 return tasks.findTask(input.substring(4).trim());
@@ -82,6 +84,11 @@ public class Cleo {
                 return reply;
             case EVENT:
                 reply = addEventTask(input.substring(5).trim());
+                assert reply != null : "Reply should not be null";
+                storage.saveTasks(tasks);
+                return reply;
+            case PRIORITY:
+                reply = updateTaskPriority(input.substring(8).trim());
                 assert reply != null : "Reply should not be null";
                 storage.saveTasks(tasks);
                 return reply;
@@ -158,18 +165,21 @@ public class Cleo {
      */
     private String addTodoTask(String input) throws CleoException {
         String tasksString = "Cleo: Added todo task(s)!";
-        String[] todos = input.split(";");
         try {
+            String[] todos = input.split(";");
             for (String todo : todos) {
-                if (todo.isEmpty()) {
-                    throw new CleoException("Oops! The description of a todo cannot be empty.");
+                Pair<String, String> parsedTask = Parser.parseTodoInput(todo);
+                String description = parsedTask.getKey();
+                String priorityLevel = parsedTask.getValue();
+                if (priorityLevel == null || priorityLevel.isEmpty()) {
+                    priorityLevel = "P4"; // Default to P4 if no priority is specified
                 }
-                ToDos task = new ToDos(todo);
+                ToDos task = new ToDos(description, priorityLevel); // Assuming ToDos class has priority constructor
                 tasks.addTask(task);
                 tasksString += "\n" + task.toString();
             }
         } catch (CleoException e) {
-            throw new CleoException("Please enter a todo description!");
+            return e.getMessage();
         }
         return tasksString;
     }
@@ -183,11 +193,15 @@ public class Cleo {
     private String addDeadlineTask(String input) throws CleoException {
         String tasksString = "Cleo: Added deadline task(s)!";
         try {
-            String[] parts = input.split("/by", 2);
-            if (parts.length < 2 || parts[1].trim().isEmpty()) {
-                throw new CleoException("Oops! The deadline description or date cannot be empty!");
+            String[] parsedData = Parser.parseDeadlineInput(input);
+            String description = parsedData[0];
+            String deadline = parsedData[1];
+            String priorityLevel = parsedData[2];
+            if (priorityLevel == null || priorityLevel.isEmpty()) {
+                priorityLevel = "P4";
             }
-            Deadline task = new Deadline(parts[0].trim(), parts[1].trim());
+
+            Deadline task = new Deadline(description, deadline, priorityLevel);
             tasks.addTask(task);
             tasksString += "\n" + task.toString();
         } catch (IllegalArgumentException e) {
@@ -195,6 +209,7 @@ public class Cleo {
         }
         return tasksString;
     }
+
     /**
      * Adds a new event task based on user input.
      *
@@ -205,23 +220,42 @@ public class Cleo {
     private String addEventTask(String input) throws CleoException {
         String tasksString = "Cleo: Added event task(s)!";
         try {
-            String[] parts = input.split("/from", 2);
+            String[] parsedData = Parser.parseEventInput(input);
+            String description = parsedData[0];
+            String startTime = parsedData[1];
+            String endTime = parsedData[2];
+            String priorityLevel = parsedData[3];
+            if (priorityLevel == null || priorityLevel.isEmpty()) {
+                priorityLevel = "P4";
+            }
 
-            if (parts.length < 2 || parts[0].trim().isEmpty()) {
-                throw new CleoException("Oops! The event description or date cannot be empty!");
-            }
-            String[] time = parts[1].split("/to", 2);
-            if (time.length < 2 || time[0].trim().isEmpty() || time[1].trim().isEmpty()) {
-                throw new CleoException("Oops! Please specify both start and end times for the event!");
-            }
-            Events task = new Events(parts[0].trim(), time[0].trim(), time[1].trim());
+            Events task = new Events(description, startTime, endTime, priorityLevel);
             tasks.addTask(task);
             tasksString += "\n" + task.toString();
-
         } catch (IllegalArgumentException e) {
-            throw new CleoException(e.getMessage());
+            return e.getMessage();
         }
         return tasksString;
+    }
+    /**
+     * Updates the priority level of an existing task based on user input.
+     * The input is expected to contain the task number and the new priority level, separated by a '#' symbol.
+     *
+     * @param input The user input containing the task number and priority level (e.g., "1#P0").
+     * @return A response string indicating that the task's priority has been updated.
+     * @throws CleoException If the task number or priority level is invalid.
+     */
+    private String updateTaskPriority(String input) throws CleoException {
+        String[] cleanInput = input.split("#");
+        if (cleanInput.length < 2 || cleanInput[1].trim().isEmpty()) {
+            throw new CleoException("Oops! Please specify a priority level for the task!");
+        }
+        int taskNumber = Parser.parseTaskNumber(cleanInput[0].trim(), tasks.size());
+        String taskPriority = Parser.parsePriority(cleanInput[1]);
+        Task updateTask = tasks.getTask(taskNumber);
+        updateTask.setPriorityLevel(taskPriority);
+        reply = Ui.getUpdatePriorityMessage() + '\n' + updateTask.toString();
+        return reply;
     }
 
     /**

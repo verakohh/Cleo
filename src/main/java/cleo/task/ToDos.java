@@ -4,14 +4,14 @@ package cleo.task;
  * A ToDo task only has a description and no specific deadline or time associated with it.
  */
 public class ToDos extends Task {
-    protected String by;
+
     /**
      * Constructs a new ToDo task with the given description.
      *
      * @param description The description of the ToDo task.
      */
-    public ToDos(String description) {
-        super(description);
+    public ToDos(String description, String priorityLevel) {
+        super(description, priorityLevel);
     }
 
     /**

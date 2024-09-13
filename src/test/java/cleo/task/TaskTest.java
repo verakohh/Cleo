@@ -14,9 +14,8 @@ public class TaskTest {
     @BeforeEach
     public void setUp() {
         // We'll use the concrete ToDos class for testing
-        task = new ToDos("Finish homework");
+        task = new ToDos("Finish homework", "P3");
     }
-
     @Test
     public void testGetDescription() {
         assertEquals("Finish homework", task.getDescription());
@@ -25,7 +24,6 @@ public class TaskTest {
     @Test
     public void testGetStatusIcon() {
         assertEquals("[ ] ", task.getStatusIcon());
-
         task.setDone();
         assertEquals("[X] ", task.getStatusIcon());
     }
