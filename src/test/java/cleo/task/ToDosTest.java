@@ -7,14 +7,14 @@ public class ToDosTest {
 
     @Test
     public void testToDosToString() {
-        ToDos todo = new ToDos("Finish assignment");
+        ToDos todo = new ToDos("Finish assignment", "P2");
         String expected = "[T] [ ] Finish assignment";
         assertEquals(expected, todo.toString());
     }
 
     @Test
     public void testToDosDescription() {
-        ToDos todo = new ToDos("Read book");
+        ToDos todo = new ToDos("Read book", "P3");
         String expected = "Read book";
         assertEquals(expected, todo.getDescription());
     }

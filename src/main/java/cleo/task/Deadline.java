@@ -19,8 +19,8 @@ public class Deadline extends Task {
      * @param by A string containing the deadline date and time in yyyy-MM-dd HH:mm format.
      * @throws IllegalArgumentException If the date format is invalid or if the deadline is in the past.
      */
-    public Deadline(String description, String by) throws IllegalArgumentException {
-        super(description);
+    public Deadline(String description, String by, String priorityLevel) throws IllegalArgumentException {
+        super(description, priorityLevel);
         try {
             this.by = LocalDateTime.parse(by, formatter);
             if (this.by.isBefore(LocalDateTime.now())) {

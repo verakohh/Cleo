@@ -20,8 +20,8 @@ public class Events extends Task {
      * @param from A string containing the start time of the event in yyyy-MM-dd HH:mm format.
      * @param to A string containing the end time of the event in yyyy-MM-dd HH:mm format/
      */
-    public Events(String description, String from, String to) {
-        super(description);
+    public Events(String description, String from, String to, String priorityLevel) {
+        super(description, priorityLevel);
         try {
             this.from = LocalDateTime.parse(from, formatter);
             this.to = LocalDateTime.parse(to, formatter);

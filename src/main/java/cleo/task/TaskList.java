@@ -61,6 +61,20 @@ public class TaskList {
         return tasks.get(taskNumber);
     }
     /**
+     * Sorts the tasks by priority in ascending order (P0 is highest priority, P4 is lowest).
+     */
+    public void sortByPriority() {
+        Collections.sort(tasks, new TaskPriorityComparator());
+    }
+    public String listSortedByPriority() {
+        sortByPriority();
+        StringBuilder taskList = new StringBuilder("Tasks sorted by priority:\n");
+        for (Task task :tasks) {
+            taskList.append(task.toString()).append(" (").append(task.getPriorityLevel()).append(")\n");
+        }
+        return taskList.toString();
+    }
+    /**
      * Marks the task at the specified index as done.
      *
      * @param taskNumber is an integer for the task index.
