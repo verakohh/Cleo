@@ -15,7 +15,7 @@ public class Ui {
         Here are the available commands:
         1. TODO [task description] - Adds a todo task (e.g. "todo call mom #P2").
            * You can add multiple todos at once by separating them with a semicolon (e.g. "todo call;bathe;study").
-        2. DEADLINE [task description] /by [date] - Adds a deadline task 
+        2. DEADLINE [task description] /by [date] - Adds a deadline task
            (e.g. "deadline submit work /by 2025-01-01 11:00").
         3. EVENT [task description] /from [start time] /to [end time] - Adds an event task
            (e.g. "event team meeting /from 2025-01-01 09:00 /to 2025-01-01 11:00 #P2 ").
@@ -25,7 +25,7 @@ public class Ui {
         7. DELETE [task numbers] - Deletes tasks by their numbers (e.g. "delete 1 3 4").
            * You can delete multiple tasks at once by separating task numbers with spaces.
         8. FIND [keyword] - Finds tasks by a keyword (e.g. "find book", "find [E]").
-        9. PRIORITY [task number] [#priority level] - Changes priority level of the task. choose from P[0-4] 
+        9. PRIORITY [task number] [#priority level] - Changes priority level of the task. choose from P[0-4]
            (e.g. priority 2 #P0)
         10. BYE - Exits the application.
             """;

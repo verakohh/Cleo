@@ -2,6 +2,7 @@ package cleo;
 
 import java.io.IOException;
 
+import cleo.task.CommandSuggestions;
 import cleo.task.Deadline;
 import cleo.task.Events;
 import cleo.task.Task;
@@ -93,7 +94,12 @@ public class Cleo {
                 storage.saveTasks(tasks);
                 return reply;
             default:
-                return Ui.showCommandError();
+                String suggestedCommand = CommandSuggestions.getClosestCommand(input.toLowerCase());
+                if (suggestedCommand != null) {
+                    return "Cleo: Invalid command! Did you mean '" + suggestedCommand + "' instead?";
+                } else {
+                    return Ui.showCommandError();
+                }
             }
         } catch (CleoException e) {
             return "Cleo: " + e.getMessage();
