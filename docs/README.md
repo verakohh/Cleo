@@ -1,6 +1,3 @@
-Yes, you've structured the Cleo User Guide in a very clear and user-friendly way, similar to the example in the previous images! Here's the refined version of the guide with proper hyperlinks and formatting:
-
----
 
 # Cleo User Guide
 
