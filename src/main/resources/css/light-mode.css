@@ -7,3 +7,7 @@
     -fx-background-color: #10B48E;
     -fx-text-fill: #ffffff;
 }
+img {
+    max-width: 50%; /* Or your preferred size */
+    height: auto;
+}

@@ -11,24 +11,24 @@ Cleo is your friendly, interactive personal assistant chatbot designed to help y
 
 ## Table of Contents
 - [Features](#features)
-    - [Viewing help: `commands`](#viewing-comands-commands)
-    - [Adding a task: `todo`](#adding-a-task-todo)
-    - [Adding a deadline: `deadline`](#adding-a-deadline-deadline)
-    - [Adding an event: `event`](#adding-an-event-event)
-    - [Listing tasks: `list`](#listing-tasks-list)
-    - [Marking a task: `mark`](#marking-a-task-mark)
-    - [Unmarking a task: `unmark`](#unmarking-a-task-unmark)
-    - [Deleting a task: `delete`](#deleting-a-task-delete)
-    - [Finding tasks: `find`](#finding-tasks-find)
-    - [Changing task priority: `priority`](#changing-task-priority-priority)
-    - [Exiting the application: `bye`](#exiting-the-application-bye)
+  - [Viewing help: `commands`](#viewing-help-commands)
+  - [Adding a task: `todo`](#adding-a-task-todo)
+  - [Adding a deadline: `deadline`](#adding-a-deadline-deadline)
+  - [Adding an event: `event`](#adding-an-event-event)
+  - [Listing tasks: `list`](#listing-tasks-list)
+  - [Marking a task: `mark`](#marking-a-task-mark)
+  - [Unmarking a task: `unmark`](#unmarking-a-task-unmark)
+  - [Deleting a task: `delete`](#deleting-a-task-delete)
+  - [Finding tasks: `find`](#finding-tasks-find)
+  - [Changing task priority: `priority`](#changing-task-priority-priority)
+  - [Exiting the application: `bye`](#exiting-the-application-bye)
 - [Command Summary](#command-summary)
 
 ---
 
 ## Features
 
-### Viewing list of commands: <span style="color:#9Ec9ef">commands</span>
+### Viewing help: `commands`
 
 Shows a message explaining how to access the commands page.
 
@@ -49,19 +49,19 @@ Cleo: Here's a list of commands you can use:
   7. DELETE [task numbers] - Deletes tasks by their numbers (e.g. "delete 1 3 4").
      * You can delete multiple tasks at once by separating task numbers with spaces.
   8. FIND [keyword] - Finds tasks by a keyword (e.g. "find book", "find [E]").
-  9. PRIORITY [task number] [#priority level] - Changes priority level of the task. choose from P[0-4]
+  9. PRIORITY [task number] [#priority level] - Changes priority level of the task. Choose from P[0-4]
      (e.g. priority 2 #P0)
   10. BYE - Exits the application.
 ```
 
 ---
 
-### Adding a task: <span style="color:#9Ec9ef">todo</span>
+### Adding a task: `todo`
 
 Adds a todo task to Cleo's task list.
 
 **Format**: `todo [task description]`  
-Example: `todo call mom #P2`
+**Example**: `todo call mom #P2`
 
 You can add multiple todo tasks at once by separating them with a semicolon (e.g., `todo call;bathe;study`).
 
@@ -75,12 +75,12 @@ Cleo: Added todo task(s)!
 
 ---
 
-### Adding a deadline: <span style="color:#9Ec9ef">deadline</span>
+### Adding a deadline: `deadline`
 
 Adds a deadline task to Cleo's task list.
 
 **Format**: `deadline [task description] /by [date]`  
-Example: `deadline submit report /by 2025-01-01 11:00`
+**Example**: `deadline submit report /by 2025-01-01 11:00`
 
 **Expected Outcome**:
 ```
@@ -90,12 +90,12 @@ Cleo: Added deadline task(s)!
 
 ---
 
-### Adding an event: <span style="color:#9Ec9ef">event</span>
+### Adding an event: `event`
 
 Adds an event task to Cleo's task list.
 
 **Format**: `event [task description] /from [start time] /to [end time]`  
-Example: `event team meeting /from 2025-01-01 09:00 /to 2025-01-01 11:00`
+**Example**: `event team meeting /from 2025-01-01 09:00 /to 2025-01-01 11:00`
 
 **Expected Outcome**:
 ```
@@ -105,12 +105,12 @@ Cleo: Added event task(s)!
 
 ---
 
-### Prioritizing Tasks: <span style="color:#9Ec9ef">priority</span>
+### Prioritizing Tasks: `priority`
 
 Cleo allows you to assign priority levels to your tasks (P0 to P4, where P0 is the highest priority and P4 the lowest).
 
 **Format**: `priority [task number] #[priority level]`  
-Example: `priority 2 #P1`
+**Example**: `priority 2 #P1`
 
 **Expected Outcome**:
 ```
@@ -120,7 +120,7 @@ Cleo: Updated task priority!
 
 ---
 
-### Listing Tasks: <span style="color:#9Ec9ef">list</span>
+### Listing Tasks: `list`
 
 You can view all your tasks using the `list` command, which shows all tasks with their completion status and priority level.
 
@@ -135,12 +135,12 @@ Here are your tasks:
 
 ---
 
-### Marking Tasks: <span style="color:#9Ec9ef">mark</span>
+### Marking Tasks: `mark`
 
 To mark a task as completed, use the `mark` command.
 
 **Format**: `mark [task number]`  
-Example: `mark 1`
+**Example**: `mark 1`
 
 **Expected Outcome**:
 ```
@@ -150,12 +150,12 @@ Cleo: Great job! I've marked this task as done:
 
 ---
 
-### Unmarking Tasks: <span style="color:#9Ec9ef">unmark</span>
+### Unmarking Tasks: `unmark`
 
 To unmark a task as not done, use the `unmark` command.
 
 **Format**: `unmark [task number]`  
-Example: `unmark 1`
+**Example**: `unmark 1`
 
 **Expected Outcome**:
 ```
@@ -165,12 +165,12 @@ Cleo: Okay! I've unmarked this task as not done yet:
 
 ---
 
-### Deleting Tasks: <span style="color:#9Ec9ef">delete</span>
+### Deleting Tasks: `delete`
 
 You can delete tasks using the `delete` command.
 
 **Format**: `delete [task number]`  
-Example: `delete 1`
+**Example**: `delete 1`
 
 **Expected Outcome**:
 ```
@@ -180,12 +180,12 @@ Cleo: Noted, I've removed this task:
 
 ---
 
-### Finding Tasks: <span style="color:#9Ec9ef">find</span>
+### Finding Tasks: `find`
 
 Use the `find` command to search for tasks containing specific keywords.
 
 **Format**: `find [keyword]`  
-Example: `find assignment`
+**Example**: `find assignment`
 
 **Expected Outcome**:
 ```
@@ -195,7 +195,7 @@ Cleo: Here are the matching tasks in your list:
 
 ---
 
-### Exiting the Application: <span style="color:#9Ec9ef">bye</span>
+### Exiting the Application: `bye`
 
 To exit Cleo, simply use the `bye` command.
 
@@ -222,6 +222,4 @@ Cleo: Goodbye, hope to see you again soon!
 | find      | `find [keyword]`                     | `find assignment`                    |
 | priority  | `priority [task number] #[priority]` | `priority 1 #P0`                     |
 | bye       | `bye`                                | `bye`                                |
-
-
 
