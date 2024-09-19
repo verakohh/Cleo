@@ -5,7 +5,9 @@
 
 ## Introduction to Cleo
 
-Cleo is your friendly, interactive personal assistant chatbot designed to help you keep track of tasks, deadlines, and events. With an intuitive GUI, Cleo is designed to be responsive and easy to use. Whether you're managing daily tasks or planning future events, Cleo is here to assist you!
+Cleo is your friendly, interactive personal assistant chatbot designed to help you keep track of tasks, deadlines, and
+events. With an intuitive GUI, Cleo is designed to be responsive and easy to use. Whether you're managing daily tasks
+or planning future events, Cleo is here to assist you!
 
 ---
 
@@ -16,9 +18,9 @@ Cleo is your friendly, interactive personal assistant chatbot designed to help y
   - [Adding a deadline: `deadline`](#adding-a-deadline-deadline)
   - [Adding an event: `event`](#adding-an-event-event)
   - [Listing tasks: `list`](#listing-tasks-list)
-  - [Marking a task: `mark`](#marking-a-task-mark)
-  - [Unmarking a task: `unmark`](#unmarking-a-task-unmark)
-  - [Deleting a task: `delete`](#deleting-a-task-delete)
+  - [Marking task: `mark`](#marking-tasks-mark)
+  - [Unmarking task: `unmark`](#unmarking-tasks-unmark)
+  - [Deleting tasks: `delete`](#deleting-tasks-delete)
   - [Finding tasks: `find`](#finding-tasks-find)
   - [Changing task priority: `priority`](#changing-task-priority-priority)
   - [Exiting the application: `bye`](#exiting-the-application-bye)
@@ -28,7 +30,7 @@ Cleo is your friendly, interactive personal assistant chatbot designed to help y
 
 ## Features
 
-### Viewing help: `commands`
+### Viewing list of commands: <span style="color:#9Ec9ef">commands</span>
 
 Shows a message explaining how to access the commands page.
 
@@ -56,7 +58,7 @@ Cleo: Here's a list of commands you can use:
 
 ---
 
-### Adding a task: `todo`
+### Adding a task: <span style="color:#9Ec9ef">todo</span>
 
 Adds a todo task to Cleo's task list.
 
@@ -75,7 +77,7 @@ Cleo: Added todo task(s)!
 
 ---
 
-### Adding a deadline: `deadline`
+### Adding a deadline: <span style="color:#9Ec9ef">deadline</span>
 
 Adds a deadline task to Cleo's task list.
 
@@ -90,7 +92,7 @@ Cleo: Added deadline task(s)!
 
 ---
 
-### Adding an event: `event`
+### Adding an event: <span style="color:#9Ec9ef">event</span>
 
 Adds an event task to Cleo's task list.
 
@@ -105,7 +107,7 @@ Cleo: Added event task(s)!
 
 ---
 
-### Prioritizing Tasks: `priority`
+### Changing task priority: <span style="color:#9Ec9ef">priority</span>
 
 Cleo allows you to assign priority levels to your tasks (P0 to P4, where P0 is the highest priority and P4 the lowest).
 
@@ -120,9 +122,10 @@ Cleo: Updated task priority!
 
 ---
 
-### Listing Tasks: `list`
+### Listing Tasks: <span style="color:#9Ec9ef">list</span>
 
-You can view all your tasks using the `list` command, which shows all tasks with their completion status and priority level.
+You can view all your tasks using the `list` command, which shows all tasks with their completion status and priority 
+level.
 
 **Format**: `list`
 
@@ -135,7 +138,7 @@ Here are your tasks:
 
 ---
 
-### Marking Tasks: `mark`
+### Marking Tasks: <span style="color:#9Ec9ef">mark</span>
 
 To mark a task as completed, use the `mark` command.
 
@@ -150,7 +153,7 @@ Cleo: Great job! I've marked this task as done:
 
 ---
 
-### Unmarking Tasks: `unmark`
+### Unmarking Tasks: <span style="color:#9Ec9ef">unmark</span>
 
 To unmark a task as not done, use the `unmark` command.
 
@@ -165,7 +168,7 @@ Cleo: Okay! I've unmarked this task as not done yet:
 
 ---
 
-### Deleting Tasks: `delete`
+### Deleting Tasks: <span style="color:#9Ec9ef">delete</span>
 
 You can delete tasks using the `delete` command.
 
@@ -180,7 +183,7 @@ Cleo: Noted, I've removed this task:
 
 ---
 
-### Finding Tasks: `find`
+### Finding Tasks: <span style="color:#9Ec9ef">find</span>
 
 Use the `find` command to search for tasks containing specific keywords.
 
@@ -194,8 +197,8 @@ Cleo: Here are the matching tasks in your list:
 ```
 
 ---
+### Exiting the Application: <span style="color:#9Ec9ef">bye</span>
 
-### Exiting the Application: `bye`
 
 To exit Cleo, simply use the `bye` command.
 
