@@ -175,7 +175,8 @@ public class Cleo {
      */
     private String handleAddTodoTask(String input) throws CleoException {
         StringBuilder tasksString = new StringBuilder("Cleo: Added todo task(s)!");
-        String[] todos = input.split(";");
+
+        String[] todos = input.substring(4).trim().split(";");
         for (String todo : todos) {
             Pair<String, String> parsedTask = Parser.parseTodoInput(todo);
             String description = parsedTask.getKey();
