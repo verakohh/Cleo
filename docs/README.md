@@ -226,3 +226,7 @@ Cleo: Goodbye, hope to see you again soon!
 | priority  | `priority [task number] #[priority]` | `priority 1 #P0`                     |
 | bye       | `bye`                                | `bye`                                |
 
+
+---
+## Acknowledgements
+I would like to extend my thanks to ChatGPT by OpenAI for assisting with the writing of Javadocs and helping design parts of the JavaFX code. ChatGPT provided valuable suggestions and explanations that significantly improved the structure and readability of the code and documentation.
