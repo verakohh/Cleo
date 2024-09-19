@@ -16,12 +16,12 @@ import javafx.util.Pair;
  * Provides functionality to add, mark, unmark, delete, and find tasks based on user input.
  */
 public class Cleo {
+    private static final String DEFAULT_PRIORITY = "P4";
+
     private final Storage storage;
     private final Ui ui;
     private TaskList tasks;
     private String reply;
-
-    private static final String DEFAULT_PRIORITY = "P4";
 
     /**
      * Constructor for Cleo.
@@ -198,7 +198,8 @@ public class Cleo {
      */
     private String handleAddDeadlineTask(String input) throws CleoException {
         String[] parsedData = Parser.parseDeadlineInput(input.substring(8).trim());
-        Deadline task = new Deadline(parsedData[0], parsedData[1], parsedData[2] != null ? parsedData[2] : DEFAULT_PRIORITY);
+        Deadline task = new Deadline(parsedData[0], parsedData[1],
+                parsedData[2] != null ? parsedData[2] : DEFAULT_PRIORITY);
         tasks.addTask(task);
         storage.saveTasks(tasks);
         return "Cleo: Added deadline task(s)!\n" + task.toString();
@@ -213,7 +214,8 @@ public class Cleo {
      */
     private String handleAddEventTask(String input) throws CleoException {
         String[] parsedData = Parser.parseEventInput(input.substring(5).trim());
-        Events task = new Events(parsedData[0], parsedData[1], parsedData[2], parsedData[3] != null ? parsedData[3] : DEFAULT_PRIORITY);
+        Events task = new Events(parsedData[0], parsedData[1], parsedData[2],
+                parsedData[3] != null ? parsedData[3] : DEFAULT_PRIORITY);
         tasks.addTask(task);
         storage.saveTasks(tasks);
         return "Cleo: Added event task(s)!\n" + task.toString();
