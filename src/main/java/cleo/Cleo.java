@@ -8,7 +8,9 @@ import cleo.task.Events;
 import cleo.task.Task;
 import cleo.task.TaskList;
 import cleo.task.ToDos;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
+import javafx.util.Duration;
 import javafx.util.Pair;
 
 /**
@@ -90,8 +92,17 @@ public class Cleo {
      * @return the exit message.
      */
     private String handleExit() {
-        Platform.exit();
-        return Ui.getByeMessage();
+        String byeMessage = Ui.getByeMessage();
+        PauseTransition pause = new PauseTransition(Duration.seconds(1));
+
+        // Set the action to be executed after the delay (exit the platform)
+        pause.setOnFinished(event -> Platform.exit());
+
+        // Start the pause timer
+        pause.play();
+
+        // Return the goodbye message immediately
+        return byeMessage;
     }
 
     /**
