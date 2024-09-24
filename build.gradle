@@ -37,7 +37,7 @@ dependencies {
 }
 
 application {
-    mainClass.set("cleo.Main")
+    mainClass.set("cleo.MainLauncher")
 }
 
 shadowJar {

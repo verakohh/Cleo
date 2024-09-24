@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * The main class of Cleo application that sets up the GUI using FXML.
  */
 public class Main extends Application {
 
@@ -18,15 +18,23 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
-
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setCleo(cleo); // inject the Cleo instance
+            fxmlLoader.<MainWindow>getController().setCleo(cleo); // Inject the Cleo instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * This method is the entry point when the application is started via MainLauncher.
+     *
+     * @param args Command-line arguments passed to the application.
+     */
+    public static void main(String[] args) {
+        launch(args); // Launch the JavaFX application
     }
 }
